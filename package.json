@@ -1,13 +1,17 @@
 {
   "name": "kerouac-book",
   "version": "0.0.0",
-  "description": "",
+  "description": "Kerouac app that generates a book section of a site.",
+  "keywords": [
+    "gitbook"
+  ],
   "author": {
     "name": "Jared Hanson",
     "email": "jaredhanson@gmail.com",
     "url": "http://jaredhanson.net/"
   },
-  "repository": {    "type": "git",
+  "repository": {
+    "type": "git",
     "url": "git://github.com/jaredhanson/kerouac-book.git"
   },
   "bugs": {
@@ -21,6 +25,9 @@
     }
   ],
   "main": "./lib",
+  "dependencies": {
+    "kerouac": "0.0.x"
+  },
   "devDependencies": {
     "make-node": "^0.3.0",
     "mocha": "^2.0.0",
