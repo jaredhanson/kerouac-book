@@ -26,7 +26,8 @@
   ],
   "main": "./lib",
   "dependencies": {
-    "kerouac": "0.0.x"
+    "kerouac": "0.0.x",
+    "marked": "^0.3.6"
   },
   "devDependencies": {
     "make-node": "^0.3.0",
