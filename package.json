@@ -26,6 +26,7 @@
   ],
   "main": "./lib",
   "dependencies": {
+    "headmatter": "0.0.2",
     "kerouac": "0.0.x",
     "marked": "^0.3.6"
   },
