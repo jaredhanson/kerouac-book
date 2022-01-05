@@ -147,6 +147,8 @@ describe('GitBook', function() {
             switch (path) {
             case '/tmp/book/SUMMARY.md':
               return fs.readFile('test/data/chapters/SUMMARY.md', 'utf8', callback);
+            case '/tmp/book/writing.md':
+              return fs.readFile('test/data/chapters/writing.md', 'utf8', callback);
             default:
               throw new Error("unexpected path '" + path + "'");
             }
@@ -160,8 +162,10 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapter).to.deep.equal({
+          type: 'md',
           title: 'Writing is nice',
-          href: 'writing.md'
+          head: {},
+          content: "# Title of the chapter\n\nThis is a great introduction.\n\n## Section 1\n\nMarkdown will dictates _most_ of your **book's structure**\n\n## Section 2\n\n...\n"
         });
         done();
       });
