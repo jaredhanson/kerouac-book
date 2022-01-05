@@ -28,7 +28,8 @@
   "dependencies": {
     "headmatter": "0.0.2",
     "kerouac": "0.0.x",
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "utils-flatten": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
