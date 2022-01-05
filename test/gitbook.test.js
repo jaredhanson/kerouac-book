@@ -11,7 +11,7 @@ describe('GitBook', function() {
   
   describe('#chapters', function() {
     
-    it('should read summary with chapters', function(done) {
+    it('should yield chapters', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           readFile: function(path, encoding, callback) {
@@ -33,10 +33,10 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    });
+    }); // should yield chapters
     
     // https://github.com/GitbookIO/gitbook/blob/master/docs/pages.md#summary
-    it.only('should read summary with subchapters', function(done) {
+    it('should yield chapters with subchapters', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           readFile: function(path, encoding, callback) {
@@ -46,7 +46,6 @@ describe('GitBook', function() {
           }
         }
       });
-      
       
       var book = new GitBook('/tmp/book');
       book.chapters(function(err, chapters) {
@@ -72,8 +71,69 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    });
+    }); // should yield chapters with subchapters
     
-  });
+    it('should yield chapters without parts', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          readFile: function(path, encoding, callback) {
+            expect(path).to.equal('/tmp/book/SUMMARY.md');
+            expect(encoding).to.equal('utf8');
+            return fs.readFile('test/data/parts/SUMMARY.md', 'utf8', callback);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/book');
+      book.chapters(function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          { title: 'Writing is nice', href: 'part1/writing.md' },
+          { title: 'GitBook is nice', href: 'part1/gitbook.md', children: null },
+          { title: 'We love feedback', href: 'part2/feedback_please.md' },
+          { title: 'Better tools for authors', href: 'part2/better_tools.md', children: null },
+          { title: 'Last part without title', href: 'part3/title.md' }
+        ]);
+        done();
+      });
+    }); // should yield chapters without parts
+    
+    it('should yield chapters with parts when include parts option is set', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          readFile: function(path, encoding, callback) {
+            expect(path).to.equal('/tmp/book/SUMMARY.md');
+            expect(encoding).to.equal('utf8');
+            return fs.readFile('test/data/parts/SUMMARY.md', 'utf8', callback);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/book');
+      book.chapters({ includeParts: true }, function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          { text: 'Part I' },
+          [
+            { title: 'Writing is nice', href: 'part1/writing.md' },
+            { title: 'GitBook is nice', href: 'part1/gitbook.md', children: null }
+          ],
+          { text: 'Part II' },
+          [
+            { title: 'We love feedback', href: 'part2/feedback_please.md' },
+            { title: 'Better tools for authors', href: 'part2/better_tools.md', children: null }
+          ],
+          { divider: true },
+          [
+            { title: 'Last part without title', href: 'part3/title.md' }
+          ]
+        ]);
+        done();
+      });
+    }); // should yield chapters with parts when include parts option is set
+    
+  }); // #chapters
   
 });
