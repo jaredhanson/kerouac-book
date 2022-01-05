@@ -136,4 +136,37 @@ describe('GitBook', function() {
     
   }); // #chapters
   
+  describe('#chapter', function() {
+    
+    it('should yield chapter', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+
+            switch (path) {
+            case '/tmp/book/SUMMARY.md':
+              return fs.readFile('test/data/chapters/SUMMARY.md', 'utf8', callback);
+            default:
+              throw new Error("unexpected path '" + path + "'");
+            }
+          }
+        }
+      });
+      
+      
+      var book = new GitBook('/tmp/book');
+      book.chapter('writing', function(err, chapter) {
+        if (err) { return done(err); }
+        
+        expect(chapter).to.deep.equal({
+          title: 'Writing is nice',
+          href: 'writing.md'
+        });
+        done();
+      });
+    }); // should yield chapter
+    
+  });
+  
 });
