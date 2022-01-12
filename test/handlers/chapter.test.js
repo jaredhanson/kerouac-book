@@ -20,7 +20,7 @@ describe('handlers/chapter', function() {
       .finish(function() {
         expect(this).to.render('book/chapter')
           .with.locals({ title: 'Chapters: Writing is nice'})
-          .and.beginWith.content('# Title of the chapter').of.format('md');
+          .and.beginWith.content('# Writing').of.format('md');
           
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);

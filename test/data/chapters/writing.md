@@ -1,11 +1,3 @@
-# Title of the chapter
+# Writing
 
-This is a great introduction.
-
-## Section 1
-
-Markdown will dictates _most_ of your **book's structure**
-
-## Section 2
-
-...
+Writing is nice.

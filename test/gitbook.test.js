@@ -176,7 +176,7 @@ describe('GitBook', function() {
           type: 'md',
           title: 'Writing is nice',
           head: {},
-          content: "# Title of the chapter\n\nThis is a great introduction.\n\n## Section 1\n\nMarkdown will dictates _most_ of your **book's structure**\n\n## Section 2\n\n...\n",
+          content: "# Writing\n\nWriting is nice.\n",
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
