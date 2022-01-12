@@ -9,8 +9,8 @@ var GitBook = require('../../lib/gitbook');
 
 describe('handlers/chapter', function() {
   
-  it.skip('should do something', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../data/chapters'));
+  it('should render', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/chapters'), 'Chapters');
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
@@ -18,11 +18,12 @@ describe('handlers/chapter', function() {
         page.params = { 0: 'writing' };
       })
       .finish(function() {
-        expect(1).to.equal(2);
+        expect(this).to.render('book/chapter')
+          .with.locals({ title: 'Chapters: Writing is nice'})
+          .and.beginWith.content('# Title of the chapter')
         done();
       })
       .generate();
-    
-  });
+  }); // should render
   
 });
