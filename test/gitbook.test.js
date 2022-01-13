@@ -651,6 +651,72 @@ describe('GitBook', function() {
       });
     }); // should yield preface
     
-  });
+    it('should yield preface included in summary', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/config/book.json':
+              return true;
+            case '/tmp/books/config/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/config/book.json':
+              return fs.readFileSync('test/data/books/config/book.json', 'utf8');
+            case '/tmp/books/config/README.md':
+              return fs.readFileSync('test/data/books/config/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/config/SUMMARY.md':
+              return fs.readFile('test/data/books/config/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/config/README.md':
+              return fs.readFile('test/data/books/config/README.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          stat: function(path, callback) {
+            expect(path).to.equal('/tmp/books/config/README.md');
+            
+            process.nextTick(function() {
+              return callback(null, {
+                mtime: new Date('2022-01-05T21:48:14.573Z'),
+                birthtime: new Date('2021-04-09T22:23:05.773Z')
+              });
+            });
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/config');
+      book.chapter('index', function(err, chapter) {
+        if (err) { return done(err); }
+        
+        expect(chapter).to.deep.equal({
+          format: 'md',
+          head: {},
+          title: 'Preface',
+          content: "# Preface\n",
+          createdAt: new Date('2021-04-09T22:23:05.773Z'),
+          modifiedAt: new Date('2022-01-05T21:48:14.573Z')
+        });
+        done();
+      });
+    }); // should yield preface included in summary
+    
+  }); // #chapter
   
 });
