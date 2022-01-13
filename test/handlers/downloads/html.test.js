@@ -11,7 +11,7 @@ var GitBook = require('../../../lib/gitbook');
 describe('handlers/downloads/html', function() {
   
   it('should render', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../../data/chapters'), 'Chapters');
+    var book = new GitBook(path.resolve(__dirname, '../../data/chapters'));
     
     var convert = sinon.stub().yieldsAsync(null, '1 ');
     
@@ -27,7 +27,7 @@ describe('handlers/downloads/html', function() {
         //expect(1).to.equal(2);
         
         expect(this).to.render('book')
-          .with.locals({ title: 'Chapters'})
+          .with.locals({ title: 'Chapters Example'})
         
         done();
         

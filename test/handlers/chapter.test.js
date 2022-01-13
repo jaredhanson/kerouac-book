@@ -10,7 +10,7 @@ var GitBook = require('../../lib/gitbook');
 describe('handlers/chapter', function() {
   
   it('should render', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../data/chapters'), 'Chapters');
+    var book = new GitBook(path.resolve(__dirname, '../data/chapters'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
@@ -19,7 +19,7 @@ describe('handlers/chapter', function() {
       })
       .finish(function() {
         expect(this).to.render('book/chapter')
-          .with.locals({ title: 'Chapters: Writing is nice' })
+          .with.locals({ title: 'Chapters Example: Writing is nice' })
           .and.beginWith.content('# Writing').of.format('md');
           
         expect(this.locals.toc).to.deep.equal([
@@ -35,7 +35,7 @@ describe('handlers/chapter', function() {
   }); // should render
   
   it.skip('should render with table of contents containing parts', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../data/parts'), 'Parts');
+    var book = new GitBook(path.resolve(__dirname, '../data/parts'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
