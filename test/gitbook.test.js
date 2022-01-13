@@ -122,7 +122,6 @@ describe('GitBook', function() {
       });
     }); // should yield chapters
     
-    // https://github.com/GitbookIO/gitbook/blob/master/docs/pages.md#summary
     it('should yield chapters with subchapters', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
@@ -234,7 +233,7 @@ describe('GitBook', function() {
       });
     }); // should yield chapters without parts
     
-    it('should yield chapters with parts when include parts option is set', function(done) {
+    it('should yield chapters with parts when include option is set', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -297,7 +296,7 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    }); // should yield chapters with parts when include parts option is set
+    }); // should yield chapters with parts when include option is set
     
   }); // #chapters
   
