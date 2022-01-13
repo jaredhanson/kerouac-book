@@ -116,14 +116,14 @@ describe('GitBook', function() {
         
         expect(chapters).to.deep.equal([
           {
-            text: 'Part I',
+            title: 'Part I',
             chapters: [
               { title: 'Writing is nice', href: 'part1/writing.md' },
               { title: 'GitBook is nice', href: 'part1/gitbook.md' }
             ]
           },
           {
-            text: 'Part II',
+            title: 'Part II',
             chapters: [
               { title: 'We love feedback', href: 'part2/feedback_please.md' },
               { title: 'Better tools for authors', href: 'part2/better_tools.md' }
