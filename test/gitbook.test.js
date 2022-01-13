@@ -11,7 +11,7 @@ describe('GitBook', function() {
   
   describe('constructor', function() {
     
-    it.only('should parse metadata', function() {
+    it('should parse config', function() {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -30,7 +30,29 @@ describe('GitBook', function() {
       var book = new GitBook('/tmp/books/config');
       expect(book.title).to.equal('Example Book');
       expect(book.description).to.equal('This book is for use in illustrative examples.');
-    });
+    }); // should parse config
+    
+    it('should parse readme', function() {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            if (path == '/tmp/books/readme/book.json') { return false; }
+            expect(path).to.equal('/tmp/books/readme/README.md');
+            return true;
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(path).to.equal('/tmp/books/readme/README.md');
+            expect(encoding).to.equal('utf8');
+            return fs.readFileSync('test/data/books/readme/README.md', 'utf8');
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/readme');
+      expect(book.title).to.equal('Example Book');
+      expect(book.description).to.be.undefined;
+    }); // should parse readme
     
   });
   
