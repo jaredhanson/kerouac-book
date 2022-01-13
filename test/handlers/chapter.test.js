@@ -19,8 +19,13 @@ describe('handlers/chapter', function() {
       })
       .finish(function() {
         expect(this).to.render('book/chapter')
-          .with.locals({ title: 'Chapters: Writing is nice'})
+          .with.locals({ title: 'Chapters: Writing is nice' })
           .and.beginWith.content('# Writing').of.format('md');
+          
+        expect(this.locals.toc).to.deep.equal([
+          { title: 'Writing is nice', href: 'writing.md' },
+          { title: 'GitBook is nice', href: 'gitbook.md' }
+        ]);
           
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);
