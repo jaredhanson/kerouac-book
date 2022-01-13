@@ -298,6 +298,50 @@ describe('GitBook', function() {
       });
     }); // should yield chapters with parts when include option is set
     
+    it('should not yield chapters when only readme', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/readme/book.json':
+              return false;
+            case '/tmp/books/readme/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/readme/README.md':
+              return fs.readFileSync('test/data/books/readme/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/readme/SUMMARY.md':
+              return fs.readFile('test/data/books/readme/SUMMARY.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/readme');
+      book.chapters(function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.be.undefined;
+        done();
+      });
+    }); // should not yield chapters when only readme
+    
   }); // #chapters
   
   describe('#chapter', function() {
