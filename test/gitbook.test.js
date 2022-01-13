@@ -298,6 +298,87 @@ describe('GitBook', function() {
       });
     }); // should yield chapters and include parts when option is set
     
+    it('should yield chapters with subchapters and omit parts', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/parts-subchapters/book.json':
+              return false;
+            case '/tmp/books/parts-subchapters/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/parts-subchapters/README.md':
+              return fs.readFileSync('test/data/books/parts-subchapters/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/parts-subchapters/SUMMARY.md':
+              return fs.readFile('test/data/books/parts-subchapters/SUMMARY.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/parts-subchapters');
+      book.chapters(function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          {
+            title: 'Chapter 1',
+            href: 'part1/chapter1.md',
+            chapters: [
+              { title: 'Chapter 1-1', href: 'part1/chapter1-1.md' },
+              { title: 'Chapter 1-2', href: 'part1/chapter1-2.md' }
+            ]
+          },
+          {
+            title: 'Chapter 2',
+            href: 'part1/chapter2.md',
+            chapters: [
+              { title: 'Chapter 2-1', href: 'part1/chapter2-1.md' },
+              { title: 'Chapter 2-2', href: 'part1/chapter2-2.md' }
+            ]
+          },
+          {
+            title: 'Chapter 3',
+            href: 'part2/chapter3.md'
+          },
+          {
+            title: 'Chapter 4',
+            href: 'part2/chapter4.md',
+            chapters: [
+              { title: 'Chapter 4-1', href: 'part2/chapter4-1.md' },
+              { title: 'Chapter 4-2', href: 'part2/chapter4-2.md' }
+            ]
+          },
+          {
+            title: 'Chapter 5',
+            href: 'part3/chapter5.md',
+            chapters: [
+              { title: 'Chapter 5-1', href: 'part3/chapter5-1.md' },
+              { title: 'Chapter 5-2', href: 'part3/chapter5-2.md' }
+            ]
+          }
+        ]);
+        done();
+      });
+    }); // should yield chapters with subchapters and omit parts
+    
     it('should not yield chapters when only readme', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
