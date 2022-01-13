@@ -55,7 +55,7 @@ describe('GitBook', function() {
           {
             title: 'Part I',
             href: 'part1/README.md',
-            children: [
+            chapters: [
               { title: 'Writing is nice', href: 'part1/writing.md' },
               { title: 'GitBook is nice', href: 'part1/gitbook.md' }
             ]
@@ -63,7 +63,7 @@ describe('GitBook', function() {
           {
             title: 'Part II',
             href: 'part2/README.md',
-            children: [
+            chapters: [
               { title: 'We love feedback', href: 'part2/feedback_please.md' },
               { title: 'Better tools for authors', href: 'part2/better_tools.md' }
             ]
@@ -90,9 +90,9 @@ describe('GitBook', function() {
         
         expect(chapters).to.deep.equal([
           { title: 'Writing is nice', href: 'part1/writing.md' },
-          { title: 'GitBook is nice', href: 'part1/gitbook.md', children: null },
+          { title: 'GitBook is nice', href: 'part1/gitbook.md' },
           { title: 'We love feedback', href: 'part2/feedback_please.md' },
-          { title: 'Better tools for authors', href: 'part2/better_tools.md', children: null },
+          { title: 'Better tools for authors', href: 'part2/better_tools.md' },
           { title: 'Last part without title', href: 'part3/title.md' }
         ]);
         done();
@@ -118,12 +118,12 @@ describe('GitBook', function() {
           { text: 'Part I' },
           [
             { title: 'Writing is nice', href: 'part1/writing.md' },
-            { title: 'GitBook is nice', href: 'part1/gitbook.md', children: null }
+            { title: 'GitBook is nice', href: 'part1/gitbook.md' }
           ],
           { text: 'Part II' },
           [
             { title: 'We love feedback', href: 'part2/feedback_please.md' },
-            { title: 'Better tools for authors', href: 'part2/better_tools.md', children: null }
+            { title: 'Better tools for authors', href: 'part2/better_tools.md' }
           ],
           { divider: true },
           [
