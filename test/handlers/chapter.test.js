@@ -9,12 +9,36 @@ var GitBook = require('../../lib/gitbook');
 
 describe('handlers/chapter', function() {
   
-  it('should render', function(done) {
+  it('should render preface', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
-        //page.params = { 0: 'index' };
+        page.params = { 0: 'index' };
+      })
+      .finish(function() {
+        expect(this).to.render('book/chapter')
+          .with.locals({ title: 'Chapters Example' })
+          .and.beginWith.content('# Chapters Example').of.format('md');
+          
+        expect(this.locals.toc).to.deep.equal([
+          { title: 'Chapter 1', href: 'chapter-1.md' },
+          { title: 'Chapter 2', href: 'chapter-2.md' }
+        ]);
+          
+        expect(this.createdAt).to.be.an.instanceof(Date);
+        expect(this.modifiedAt).to.be.an.instanceof(Date);
+        done();
+      })
+      .next(done)
+      .generate();
+  }); // should render preface
+  
+  it('should render chapter', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+    
+    chai.kerouac.page(factory(book, 'book/chapter'))
+      .request(function(page) {
         page.params = { 0: 'chapter-1' };
       })
       .finish(function() {
@@ -32,7 +56,7 @@ describe('handlers/chapter', function() {
         done();
       })
       .generate();
-  }); // should render
+  }); // should render chapter
   
   it.skip('should render with table of contents containing parts', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/parts'));
