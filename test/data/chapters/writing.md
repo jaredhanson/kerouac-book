@@ -1,3 +1,0 @@
-# Writing
-
-Writing is nice.
