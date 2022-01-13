@@ -10,21 +10,21 @@ var GitBook = require('../../lib/gitbook');
 describe('handlers/chapter', function() {
   
   it('should render', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../data/chapters'));
+    var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
         //page.params = { 0: 'index' };
-        page.params = { 0: 'writing' };
+        page.params = { 0: 'chapter-1' };
       })
       .finish(function() {
         expect(this).to.render('book/chapter')
-          .with.locals({ title: 'Chapters Example: Writing is nice' })
-          .and.beginWith.content('# Writing').of.format('md');
+          .with.locals({ title: 'Chapters Example: Chapter 1' })
+          .and.beginWith.content('# Chapter 1').of.format('md');
           
         expect(this.locals.toc).to.deep.equal([
-          { title: 'Writing is nice', href: 'writing.md' },
-          { title: 'GitBook is nice', href: 'gitbook.md' }
+          { title: 'Chapter 1', href: 'chapter-1.md' },
+          { title: 'Chapter 2', href: 'chapter-2.md' }
         ]);
           
         expect(this.createdAt).to.be.an.instanceof(Date);
