@@ -9,6 +9,32 @@ var fs = require('fs');
 
 describe('GitBook', function() {
   
+  describe('constructor', function() {
+    
+    it.only('should parse metadata', function() {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            expect(path).to.equal('/tmp/books/config/book.json');
+            return true;
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(path).to.equal('/tmp/books/config/book.json');
+            expect(encoding).to.equal('utf8');
+            return fs.readFileSync('test/data/books/config/book.json', 'utf8');
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/config');
+      expect(book.title).to.equal('Example Book');
+      expect(book.description).to.equal('This book is for use in illustrative examples.');
+    });
+    
+  });
+  
+  
   describe('#chapters', function() {
     
     it('should yield chapters', function(done) {
