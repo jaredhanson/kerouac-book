@@ -78,7 +78,7 @@ describe('handlers/chapter', function() {
       .generate();
   }); // should render chapter
   
-  it.only('should render with table of contents containing parts', function(done) {
+  it('should render with table of contents containing parts', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/parts'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
