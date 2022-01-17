@@ -22,8 +22,12 @@ describe('handlers/chapter', function() {
           .and.beginWith.content('# Chapters Example').of.format('md');
           
         expect(this.locals.summary).to.deep.equal([
-          { title: 'Chapter 1', href: 'chapter-1.md' },
-          { title: 'Chapter 2', href: 'chapter-2.md' }
+          {
+            chapters: [
+              { title: 'Chapter 1', href: 'chapter-1.md' },
+              { title: 'Chapter 2', href: 'chapter-2.md' }
+            ]
+          }
         ]);
           
         expect(this.createdAt).to.be.an.instanceof(Date);
@@ -55,8 +59,12 @@ describe('handlers/chapter', function() {
           title: 'Chapter 1'
         });
         expect(this.locals.summary).to.deep.equal([
-          { title: 'Chapter 1', href: 'chapter-1.md' },
-          { title: 'Chapter 2', href: 'chapter-2.md' }
+          {
+            chapters: [
+              { title: 'Chapter 1', href: 'chapter-1.md' },
+              { title: 'Chapter 2', href: 'chapter-2.md' }
+            ]
+          }
         ]);
           
         expect(this.createdAt).to.be.an.instanceof(Date);
