@@ -519,6 +519,52 @@ describe('GitBook', function() {
       });
     }); // should not yield chapters when only readme
     
+    it('should not HTML escape characters', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/escape/book.json':
+              return false;
+            case '/tmp/books/escape/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/escape/README.md':
+              return fs.readFileSync('test/data/books/escape/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/escape/SUMMARY.md':
+              return fs.readFile('test/data/books/escape/SUMMARY.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/escape');
+      book.chapters(function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          { title: 'Ampersand & Ampersand', href: 'ampersand.md' },
+        ]);
+        done();
+      });
+    }); // should not HTML escape characters
+    
   }); // #chapters
   
   describe('#chapter', function() {
