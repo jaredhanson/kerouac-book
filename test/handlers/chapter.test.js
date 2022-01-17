@@ -20,7 +20,13 @@ describe('handlers/chapter', function() {
         expect(this).to.render('book/chapter')
           .with.locals({ title: 'Chapters Example' })
           .and.beginWith.content('# Chapters Example').of.format('md');
-          
+        
+        expect(this.locals.book).to.deep.equal({
+          title: 'Chapters Example'
+        });
+        expect(this.locals.page).to.deep.equal({
+          title: undefined
+        });
         expect(this.locals.summary).to.deep.equal([
           {
             chapters: [
@@ -29,7 +35,6 @@ describe('handlers/chapter', function() {
             ]
           }
         ]);
-          
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);
         done();
@@ -66,7 +71,6 @@ describe('handlers/chapter', function() {
             ]
           }
         ]);
-          
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);
         done();
