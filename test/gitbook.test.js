@@ -523,6 +523,60 @@ describe('GitBook', function() {
       });
     }); // should yield chapters with subchapters and include parts when option is set
     
+    it('should yield chapters then parts and include parts when option is set', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/chapters-parts/book.json':
+              return false;
+            case '/tmp/books/chapters-parts/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/chapters-parts/README.md':
+              return fs.readFileSync('test/data/books/chapters-parts/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/chapters-parts/SUMMARY.md':
+              return fs.readFile('test/data/books/chapters-parts/SUMMARY.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/chapters-parts');
+      book.chapters({ includeParts: true }, function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          { title: 'Chapter 1', href: 'chapter-1.md' },
+          { title: 'Chapter 2', href: 'chapter-2.md' },
+          {
+            title: 'Part I',
+            chapters: [
+              { title: 'Chapter 3', href: 'part1/chapter3.md' },
+              { title: 'Chapter 4', href: 'part1/chapter4.md' }
+            ]
+          }
+        ]);
+        done();
+      });
+    }); // should yield chapters then parts and include parts when option is set
+    
     it('should not yield chapters when only readme', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
