@@ -183,6 +183,54 @@ describe('GitBook', function() {
       });
     }); // should yield chapters with subchapters
     
+    // WIP
+    it.skip('should yield chapters with implicit part when option is set', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/chapters/book.json':
+              return false;
+            case '/tmp/books/chapters/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/chapters/README.md':
+              return fs.readFileSync('test/data/books/chapters/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/chapters/SUMMARY.md':
+              return fs.readFile('test/data/books/chapters/SUMMARY.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/chapters');
+      book.chapters({ includeParts: true }, function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          { title: 'Chapter 1', href: 'chapter-1.md' },
+          { title: 'Chapter 2', href: 'chapter-2.md' }
+        ]);
+        done();
+      });
+    }); // should yield chapters with implicit part when option is set
+    
     it('should yield chapters and omit parts', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {

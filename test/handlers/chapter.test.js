@@ -21,7 +21,7 @@ describe('handlers/chapter', function() {
           .with.locals({ title: 'Chapters Example' })
           .and.beginWith.content('# Chapters Example').of.format('md');
           
-        expect(this.locals.toc).to.deep.equal([
+        expect(this.locals.summary).to.deep.equal([
           { title: 'Chapter 1', href: 'chapter-1.md' },
           { title: 'Chapter 2', href: 'chapter-2.md' }
         ]);
@@ -54,7 +54,7 @@ describe('handlers/chapter', function() {
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1'
         });
-        expect(this.locals.toc).to.deep.equal([
+        expect(this.locals.summary).to.deep.equal([
           { title: 'Chapter 1', href: 'chapter-1.md' },
           { title: 'Chapter 2', href: 'chapter-2.md' }
         ]);
