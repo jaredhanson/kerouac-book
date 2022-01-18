@@ -115,8 +115,8 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
-          { title: 'Chapter 1', href: 'chapter-1.md' },
-          { title: 'Chapter 2', href: 'chapter-2.md' }
+          { title: 'Chapter 1', path: 'chapter-1.md' },
+          { title: 'Chapter 2', path: 'chapter-2.md' }
         ]);
         done();
       });
@@ -164,18 +164,18 @@ describe('GitBook', function() {
         expect(chapters).to.deep.equal([
           {
             title: 'Part I',
-            href: 'part1/README.md',
+            path: 'part1/README.md',
             chapters: [
-              { title: 'Chapter I-1', href: 'part1/chapter-1.md' },
-              { title: 'Chapter I-2', href: 'part1/chapter-2.md' }
+              { title: 'Chapter I-1', path: 'part1/chapter-1.md' },
+              { title: 'Chapter I-2', path: 'part1/chapter-2.md' }
             ]
           },
           {
             title: 'Part II',
-            href: 'part2/README.md',
+            path: 'part2/README.md',
             chapters: [
-              { title: 'Chapter II-1', href: 'part2/chapter-1.md' },
-              { title: 'Chapter II-2', href: 'part2/chapter-2.md' }
+              { title: 'Chapter II-1', path: 'part2/chapter-1.md' },
+              { title: 'Chapter II-2', path: 'part2/chapter-2.md' }
             ]
           }
         ]);
@@ -223,11 +223,11 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
-          { title: 'Chapter 1', href: 'part1/chapter1.md' },
-          { title: 'Chapter 2', href: 'part1/chapter2.md' },
-          { title: 'Chapter 3', href: 'part2/chapter3.md' },
-          { title: 'Chapter 4', href: 'part2/chapter4.md' },
-          { title: 'Chapter 5', href: 'part3/chapter5.md' }
+          { title: 'Chapter 1', path: 'part1/chapter1.md' },
+          { title: 'Chapter 2', path: 'part1/chapter2.md' },
+          { title: 'Chapter 3', path: 'part2/chapter3.md' },
+          { title: 'Chapter 4', path: 'part2/chapter4.md' },
+          { title: 'Chapter 5', path: 'part3/chapter5.md' }
         ]);
         done();
       });
@@ -276,21 +276,21 @@ describe('GitBook', function() {
           {
             title: 'Part I',
             chapters: [
-              { title: 'Chapter 1', href: 'part1/chapter1.md' },
-              { title: 'Chapter 2', href: 'part1/chapter2.md' }
+              { title: 'Chapter 1', path: 'part1/chapter1.md' },
+              { title: 'Chapter 2', path: 'part1/chapter2.md' }
             ]
           },
           {
             title: 'Part II',
             chapters: [
-              { title: 'Chapter 3', href: 'part2/chapter3.md' },
-              { title: 'Chapter 4', href: 'part2/chapter4.md' }
+              { title: 'Chapter 3', path: 'part2/chapter3.md' },
+              { title: 'Chapter 4', path: 'part2/chapter4.md' }
             ]
           },
           {
             divider: true,
             chapters: [
-              { title: 'Chapter 5', href: 'part3/chapter5.md' }
+              { title: 'Chapter 5', path: 'part3/chapter5.md' }
             ]
           }
         ]);
@@ -340,38 +340,38 @@ describe('GitBook', function() {
         expect(chapters).to.deep.equal([
           {
             title: 'Chapter 1',
-            href: 'part1/chapter1.md',
+            path: 'part1/chapter1.md',
             chapters: [
-              { title: 'Chapter 1-1', href: 'part1/chapter1-1.md' },
-              { title: 'Chapter 1-2', href: 'part1/chapter1-2.md' }
+              { title: 'Chapter 1-1', path: 'part1/chapter1-1.md' },
+              { title: 'Chapter 1-2', path: 'part1/chapter1-2.md' }
             ]
           },
           {
             title: 'Chapter 2',
-            href: 'part1/chapter2.md',
+            path: 'part1/chapter2.md',
             chapters: [
-              { title: 'Chapter 2-1', href: 'part1/chapter2-1.md' },
-              { title: 'Chapter 2-2', href: 'part1/chapter2-2.md' }
+              { title: 'Chapter 2-1', path: 'part1/chapter2-1.md' },
+              { title: 'Chapter 2-2', path: 'part1/chapter2-2.md' }
             ]
           },
           {
             title: 'Chapter 3',
-            href: 'part2/chapter3.md'
+            path: 'part2/chapter3.md'
           },
           {
             title: 'Chapter 4',
-            href: 'part2/chapter4.md',
+            path: 'part2/chapter4.md',
             chapters: [
-              { title: 'Chapter 4-1', href: 'part2/chapter4-1.md' },
-              { title: 'Chapter 4-2', href: 'part2/chapter4-2.md' }
+              { title: 'Chapter 4-1', path: 'part2/chapter4-1.md' },
+              { title: 'Chapter 4-2', path: 'part2/chapter4-2.md' }
             ]
           },
           {
             title: 'Chapter 5',
-            href: 'part3/chapter5.md',
+            path: 'part3/chapter5.md',
             chapters: [
-              { title: 'Chapter 5-1', href: 'part3/chapter5-1.md' },
-              { title: 'Chapter 5-2', href: 'part3/chapter5-2.md' }
+              { title: 'Chapter 5-1', path: 'part3/chapter5-1.md' },
+              { title: 'Chapter 5-2', path: 'part3/chapter5-2.md' }
             ]
           }
         ]);
@@ -424,18 +424,18 @@ describe('GitBook', function() {
             chapters: [
               {
                 title: 'Chapter 1',
-                href: 'part1/chapter1.md',
+                path: 'part1/chapter1.md',
                 chapters: [
-                  { title: 'Chapter 1-1', href: 'part1/chapter1-1.md' },
-                  { title: 'Chapter 1-2', href: 'part1/chapter1-2.md' }
+                  { title: 'Chapter 1-1', path: 'part1/chapter1-1.md' },
+                  { title: 'Chapter 1-2', path: 'part1/chapter1-2.md' }
                 ]
               },
               {
                 title: 'Chapter 2',
-                href: 'part1/chapter2.md',
+                path: 'part1/chapter2.md',
                 chapters: [
-                  { title: 'Chapter 2-1', href: 'part1/chapter2-1.md' },
-                  { title: 'Chapter 2-2', href: 'part1/chapter2-2.md' }
+                  { title: 'Chapter 2-1', path: 'part1/chapter2-1.md' },
+                  { title: 'Chapter 2-2', path: 'part1/chapter2-2.md' }
                 ]
               }
             ]
@@ -445,14 +445,14 @@ describe('GitBook', function() {
             chapters: [
               {
                 title: 'Chapter 3',
-                href: 'part2/chapter3.md'
+                path: 'part2/chapter3.md'
               },
               {
                 title: 'Chapter 4',
-                href: 'part2/chapter4.md',
+                path: 'part2/chapter4.md',
                 chapters: [
-                  { title: 'Chapter 4-1', href: 'part2/chapter4-1.md' },
-                  { title: 'Chapter 4-2', href: 'part2/chapter4-2.md' }
+                  { title: 'Chapter 4-1', path: 'part2/chapter4-1.md' },
+                  { title: 'Chapter 4-2', path: 'part2/chapter4-2.md' }
                 ]
               }
             ]
@@ -462,10 +462,10 @@ describe('GitBook', function() {
             chapters: [
               {
                 title: 'Chapter 5',
-                href: 'part3/chapter5.md',
+                path: 'part3/chapter5.md',
                 chapters: [
-                  { title: 'Chapter 5-1', href: 'part3/chapter5-1.md' },
-                  { title: 'Chapter 5-2', href: 'part3/chapter5-2.md' }
+                  { title: 'Chapter 5-1', path: 'part3/chapter5-1.md' },
+                  { title: 'Chapter 5-2', path: 'part3/chapter5-2.md' }
                 ]
               }
             ]
@@ -515,13 +515,13 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
-          { title: 'Chapter 1', href: 'chapter-1.md' },
-          { title: 'Chapter 2', href: 'chapter-2.md' },
+          { title: 'Chapter 1', path: 'chapter-1.md' },
+          { title: 'Chapter 2', path: 'chapter-2.md' },
           {
             title: 'Part I',
             chapters: [
-              { title: 'Chapter 3', href: 'part1/chapter3.md' },
-              { title: 'Chapter 4', href: 'part1/chapter4.md' }
+              { title: 'Chapter 3', path: 'part1/chapter3.md' },
+              { title: 'Chapter 4', path: 'part1/chapter4.md' }
             ]
           }
         ]);
@@ -613,7 +613,7 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
-          { title: 'Ampersand & Ampersand', href: 'ampersand.md' },
+          { title: 'Ampersand & Ampersand', path: 'ampersand.md' },
         ]);
         done();
       });

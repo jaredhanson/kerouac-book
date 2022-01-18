@@ -30,8 +30,8 @@ describe('handlers/chapter', function() {
         expect(this.locals.summary).to.deep.equal([
           {
             chapters: [
-              { title: 'Chapter 1', href: 'chapter-1.md' },
-              { title: 'Chapter 2', href: 'chapter-2.md' }
+              { title: 'Chapter 1', path: 'chapter-1.md' },
+              { title: 'Chapter 2', path: 'chapter-2.md' }
             ]
           }
         ]);
@@ -66,8 +66,8 @@ describe('handlers/chapter', function() {
         expect(this.locals.summary).to.deep.equal([
           {
             chapters: [
-              { title: 'Chapter 1', href: 'chapter-1.md' },
-              { title: 'Chapter 2', href: 'chapter-2.md' }
+              { title: 'Chapter 1', path: 'chapter-1.md' },
+              { title: 'Chapter 2', path: 'chapter-2.md' }
             ]
           }
         ]);
@@ -99,21 +99,21 @@ describe('handlers/chapter', function() {
           {
             title: 'Part I',
             chapters: [
-              { title: 'Chapter 1', href: 'part1/chapter1.md' },
-              { title: 'Chapter 2', href: 'part1/chapter2.md' }
+              { title: 'Chapter 1', path: 'part1/chapter1.md' },
+              { title: 'Chapter 2', path: 'part1/chapter2.md' }
             ]
           },
           {
             title: 'Part II',
             chapters: [
-              { title: 'Chapter 3', href: 'part2/chapter3.md' },
-              { title: 'Chapter 4', href: 'part2/chapter4.md' }
+              { title: 'Chapter 3', path: 'part2/chapter3.md' },
+              { title: 'Chapter 4', path: 'part2/chapter4.md' }
             ]
           },
           {
             divider: true,
             chapters: [
-              { title: 'Chapter 5', href: 'part3/chapter5.md' }
+              { title: 'Chapter 5', path: 'part3/chapter5.md' }
             ]
           }
         ]);
