@@ -27,6 +27,10 @@ describe('handlers/chapter', function() {
         expect(this.locals.page).to.deep.equal({
           title: undefined
         });
+        // TODO: This should be README.md
+        expect(this.locals.file).to.deep.equal({
+          path: 'index.md'
+        });
         expect(this.locals.summary).to.deep.equal({
           parts: [
             {
@@ -64,6 +68,9 @@ describe('handlers/chapter', function() {
         });
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1'
+        });
+        expect(this.locals.file).to.deep.equal({
+          path: 'chapter-1.md'
         });
         expect(this.locals.summary).to.deep.equal({
           parts: [
@@ -129,5 +136,52 @@ describe('handlers/chapter', function() {
       })
       .generate();
   }); // should render with table of contents containing parts
+  
+  describe('filters', function() {
+    
+    describe('resolveFile', function() {
+      
+      it('should resolve', function(done) {
+        var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+    
+        chai.kerouac.page(factory(book, 'book/chapter'))
+          .request(function(page) {
+            page.path = '/chapter-1.html';
+            page.params = { 0: 'chapter-2' };
+          })
+          .finish(function() {
+            expect(this.locals.filters.resolveFile).to.be.a('function');
+            
+            var resolveFile = this.locals.filters.resolveFile;
+            expect(resolveFile('chapter-2.md')).to.equal('/chapter-2/');
+            done();
+          })
+          .generate();
+      }); // should resolve
+      
+      it('should resolve from base path', function(done) {
+        var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+    
+        chai.kerouac.page(factory(book, 'book/chapter'))
+          .request(function(page) {
+            page.basePath = '/book'
+            page.path = '/chapter-1.html';
+            page.params = { 0: 'chapter-2' };
+          })
+          .finish(function() {
+            expect(this.locals.filters.resolveFile).to.be.a('function');
+            
+            var resolveFile = this.locals.filters.resolveFile;
+            expect(resolveFile('chapter-2.md')).to.equal('/book/chapter-2/');
+            done();
+          })
+          .generate();
+      }); // should resolve from base path
+      
+    }); // resolveFile
+    
+  }); // filters
+  
+  
   
 });
