@@ -29,7 +29,7 @@ describe('handlers/chapter', function() {
         });
         expect(this.locals.summary).to.deep.equal([
           {
-            chapters: [
+            articles: [
               { title: 'Chapter 1', path: 'chapter-1.md' },
               { title: 'Chapter 2', path: 'chapter-2.md' }
             ]
@@ -65,7 +65,7 @@ describe('handlers/chapter', function() {
         });
         expect(this.locals.summary).to.deep.equal([
           {
-            chapters: [
+            articles: [
               { title: 'Chapter 1', path: 'chapter-1.md' },
               { title: 'Chapter 2', path: 'chapter-2.md' }
             ]
@@ -98,21 +98,21 @@ describe('handlers/chapter', function() {
         expect(this.locals.summary).to.deep.equal([
           {
             title: 'Part I',
-            chapters: [
+            articles: [
               { title: 'Chapter 1', path: 'part1/chapter1.md' },
               { title: 'Chapter 2', path: 'part1/chapter2.md' }
             ]
           },
           {
             title: 'Part II',
-            chapters: [
+            articles: [
               { title: 'Chapter 3', path: 'part2/chapter3.md' },
               { title: 'Chapter 4', path: 'part2/chapter4.md' }
             ]
           },
           {
             divider: true,
-            chapters: [
+            articles: [
               { title: 'Chapter 5', path: 'part3/chapter5.md' }
             ]
           }
