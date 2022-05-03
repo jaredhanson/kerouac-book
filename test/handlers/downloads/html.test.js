@@ -11,7 +11,7 @@ var GitBook = require('../../../lib/gitbook');
 describe('handlers/downloads/html', function() {
   
   it('should render', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../../data/books/chapters'));
+    var book = new GitBook(path.resolve(__dirname, '../../data/books/simple'));
     
     var convert = sinon.stub().yieldsAsync(null, '1 ');
     

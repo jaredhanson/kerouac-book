@@ -10,7 +10,7 @@ var GitBook = require('../../lib/gitbook');
 describe('handlers/chapter', function() {
   
   it('should render preface', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+    var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
@@ -50,7 +50,7 @@ describe('handlers/chapter', function() {
   }); // should render preface
   
   it('should render chapter', function(done) {
-    var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+    var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
@@ -142,7 +142,7 @@ describe('handlers/chapter', function() {
     describe('resolveFile', function() {
       
       it('should resolve', function(done) {
-        var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+        var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
     
         chai.kerouac.page(factory(book, 'book/chapter'))
           .request(function(page) {
@@ -160,7 +160,7 @@ describe('handlers/chapter', function() {
       }); // should resolve
       
       it('should resolve from base path', function(done) {
-        var book = new GitBook(path.resolve(__dirname, '../data/books/chapters'));
+        var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
     
         chai.kerouac.page(factory(book, 'book/chapter'))
           .request(function(page) {
