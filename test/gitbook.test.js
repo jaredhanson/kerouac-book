@@ -16,9 +16,9 @@ describe('GitBook', function() {
         'fs': {
           existsSync: function(path) {
             switch (path) {
-            case '/tmp/books/simple/book.json':
+            case '/tmp/books/standard/book.json':
               return true;
-            case '/tmp/books/simple/README.md':
+            case '/tmp/books/standard/README.md':
               return true;
             }
             throw new Error('Unexpected path: ' + path);
@@ -26,17 +26,17 @@ describe('GitBook', function() {
           
           readFileSync: function(path, encoding) {
             switch (path) {
-            case '/tmp/books/simple/book.json':
-              return fs.readFileSync('test/data/books/simple/book.json', 'utf8');
-            case '/tmp/books/simple/README.md':
-              return fs.readFileSync('test/data/books/simple/README.md', 'utf8');
+            case '/tmp/books/standard/book.json':
+              return fs.readFileSync('test/data/books/standard/book.json', 'utf8');
+            case '/tmp/books/standard/README.md':
+              return fs.readFileSync('test/data/books/standard/README.md', 'utf8');
             }
             throw new Error('Unexpected path: ' + path);
           }
         }
       });
       
-      var book = new GitBook('/tmp/books/simple');
+      var book = new GitBook('/tmp/books/standard');
       expect(book.title).to.equal('Example Book');
       expect(book.description).to.equal('This book is for use in illustrative examples.');
     }); // should parse config
@@ -756,9 +756,9 @@ describe('GitBook', function() {
         'fs': {
           existsSync: function(path) {
             switch (path) {
-            case '/tmp/books/simple/book.json':
+            case '/tmp/books/standard/book.json':
               return true;
-            case '/tmp/books/simple/README.md':
+            case '/tmp/books/standard/README.md':
               return true;
             }
             throw new Error('Unexpected path: ' + path);
@@ -768,10 +768,10 @@ describe('GitBook', function() {
             expect(encoding).to.equal('utf8');
             
             switch (path) {
-            case '/tmp/books/simple/book.json':
-              return fs.readFileSync('test/data/books/simple/book.json', 'utf8');
-            case '/tmp/books/simple/README.md':
-              return fs.readFileSync('test/data/books/simple/README.md', 'utf8');
+            case '/tmp/books/standard/book.json':
+              return fs.readFileSync('test/data/books/standard/book.json', 'utf8');
+            case '/tmp/books/standard/README.md':
+              return fs.readFileSync('test/data/books/standard/README.md', 'utf8');
             }
             throw new Error('Unexpected path: ' + path);
           },
@@ -780,16 +780,16 @@ describe('GitBook', function() {
             expect(encoding).to.equal('utf8');
             
             switch (path) {
-            case '/tmp/books/simple/SUMMARY.md':
-              return fs.readFile('test/data/books/simple/SUMMARY.md', 'utf8', callback);
-            case '/tmp/books/simple/README.md':
-              return fs.readFile('test/data/books/simple/README.md', 'utf8', callback);
+            case '/tmp/books/standard/SUMMARY.md':
+              return fs.readFile('test/data/books/standard/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/standard/README.md':
+              return fs.readFile('test/data/books/standard/README.md', 'utf8', callback);
             }
             throw new Error('Unexpected path: ' + path);
           },
           
           stat: function(path, callback) {
-            expect(path).to.equal('/tmp/books/simple/README.md');
+            expect(path).to.equal('/tmp/books/standard/README.md');
             
             process.nextTick(function() {
               return callback(null, {
@@ -801,7 +801,7 @@ describe('GitBook', function() {
         }
       });
       
-      var book = new GitBook('/tmp/books/simple');
+      var book = new GitBook('/tmp/books/standard');
       book.chapter('index', function(err, chapter) {
         if (err) { return done(err); }
         
