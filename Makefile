@@ -9,6 +9,9 @@ LCOVFILE = ./reports/coverage/lcov.info
 MOCHAFLAGS = --require ./test/bootstrap/node
 
 
+docs:
+	jsdoc -d ./docs $(SOURCES)
+
 view-docs:
 	open ./docs/index.html
 
