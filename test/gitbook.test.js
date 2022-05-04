@@ -480,9 +480,9 @@ describe('GitBook', function() {
         'fs': {
           existsSync: function(path) {
             switch (path) {
-            case '/tmp/books/chapters-parts/book.json':
+            case '/tmp/books/parts-middle/book.json':
               return false;
-            case '/tmp/books/chapters-parts/README.md':
+            case '/tmp/books/parts-middle/README.md':
               return true;
             }
             throw new Error('Unexpected path: ' + path);
@@ -492,8 +492,8 @@ describe('GitBook', function() {
             expect(encoding).to.equal('utf8');
             
             switch (path) {
-            case '/tmp/books/chapters-parts/README.md':
-              return fs.readFileSync('test/data/books/chapters-parts/README.md', 'utf8');
+            case '/tmp/books/parts-middle/README.md':
+              return fs.readFileSync('test/data/books/parts-middle/README.md', 'utf8');
             }
             throw new Error('Unexpected path: ' + path);
           },
@@ -502,15 +502,15 @@ describe('GitBook', function() {
             expect(encoding).to.equal('utf8');
             
             switch (path) {
-            case '/tmp/books/chapters-parts/SUMMARY.md':
-              return fs.readFile('test/data/books/chapters-parts/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/parts-middle/SUMMARY.md':
+              return fs.readFile('test/data/books/parts-middle/SUMMARY.md', 'utf8', callback);
             }
             throw new Error('Unexpected path: ' + path);
           }
         }
       });
       
-      var book = new GitBook('/tmp/books/chapters-parts');
+      var book = new GitBook('/tmp/books/parts-middle');
       book.chapters({ includeParts: true }, function(err, chapters) {
         if (err) { return done(err); }
         
@@ -518,10 +518,10 @@ describe('GitBook', function() {
           { title: 'Chapter 1', path: 'chapter-1.md' },
           { title: 'Chapter 2', path: 'chapter-2.md' },
           {
-            title: 'Part I',
+            title: 'Part 1',
             chapters: [
-              { title: 'Chapter 3', path: 'part1/chapter3.md' },
-              { title: 'Chapter 4', path: 'part1/chapter4.md' }
+              { title: 'Chapter 3', path: 'part-1/chapter-3.md' },
+              { title: 'Chapter 4', path: 'part-1/chapter-4.md' }
             ]
           }
         ]);
