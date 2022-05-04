@@ -94,14 +94,14 @@ describe('handlers/chapter', function() {
     
     chai.kerouac.page(factory(book, 'book/chapter'))
       .request(function(page) {
-        page.params = { 0: 'part1/chapter1' };
+        page.params = { 0: 'part-1/chapter-1' };
       })
       .finish(function() {
         expect(this).to.render('book/chapter')
           .and.beginWith.content('# Chapter 1').of.format('md');
         
         expect(this.locals.book).to.deep.equal({
-          title: 'Parts Example'
+          title: 'Example Book'
         });
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1'
@@ -109,23 +109,23 @@ describe('handlers/chapter', function() {
         expect(this.locals.summary).to.deep.equal({
           parts: [
             {
-              title: 'Part I',
+              title: 'Part 1',
               articles: [
-                { title: 'Chapter 1', path: 'part1/chapter1.md' },
-                { title: 'Chapter 2', path: 'part1/chapter2.md' }
+                { title: 'Chapter 1', path: 'part-1/chapter-1.md' },
+                { title: 'Chapter 2', path: 'part-1/chapter-2.md' }
               ]
             },
             {
-              title: 'Part II',
+              title: 'Part 2',
               articles: [
-                { title: 'Chapter 3', path: 'part2/chapter3.md' },
-                { title: 'Chapter 4', path: 'part2/chapter4.md' }
+                { title: 'Chapter 3', path: 'part-2/chapter-3.md' },
+                { title: 'Chapter 4', path: 'part-2/chapter-4.md' }
               ]
             },
             {
               divider: true,
               articles: [
-                { title: 'Chapter 5', path: 'part3/chapter5.md' }
+                { title: 'Chapter 5', path: 'part-3/chapter-5.md' }
               ]
             }
           ]

@@ -1,15 +1,15 @@
 # Summary
 
-### Part I
+### Part 1
 
-* [Chapter 1](part1/chapter1.md)
-* [Chapter 2](part1/chapter2.md)
+* [Chapter 1](part-1/chapter-1.md)
+* [Chapter 2](part-1/chapter-2.md)
 
-### Part II
+### Part 2
 
-* [Chapter 3](part2/chapter3.md)
-* [Chapter 4](part2/chapter4.md)
+* [Chapter 3](part-2/chapter-3.md)
+* [Chapter 4](part-2/chapter-4.md)
 
 ----
 
-* [Chapter 5](part3/chapter5.md)
+* [Chapter 5](part-3/chapter-5.md)
