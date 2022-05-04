@@ -27,7 +27,7 @@ describe('handlers/downloads/html', function() {
         //expect(1).to.equal(2);
         
         expect(this).to.render('book')
-          .with.locals({ title: 'Chapters Example'})
+          .with.locals({ title: 'Example Book'})
         
         done();
         

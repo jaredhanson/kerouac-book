@@ -18,11 +18,11 @@ describe('handlers/chapter', function() {
       })
       .finish(function() {
         expect(this).to.render('book/chapter')
-          .with.locals({ title: 'Chapters Example' })
-          .and.beginWith.content('# Chapters Example').of.format('md');
+          .with.locals({ title: 'Example Book' })
+          .and.beginWith.content('# Example Book').of.format('md');
         
         expect(this.locals.book).to.deep.equal({
-          title: 'Chapters Example'
+          title: 'Example Book'
         });
         expect(this.locals.page).to.deep.equal({
           title: undefined
@@ -59,12 +59,12 @@ describe('handlers/chapter', function() {
       .finish(function() {
         expect(this).to.render('book/chapter')
           .with.locals({
-            title: 'Chapters Example: Chapter 1',
+            title: 'Example Book: Chapter 1',
           })
           .and.beginWith.content('# Chapter 1').of.format('md');
           
         expect(this.locals.book).to.deep.equal({
-          title: 'Chapters Example'
+          title: 'Example Book'
         });
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1'

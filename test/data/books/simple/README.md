@@ -1,1 +1,1 @@
-# Chapters Example
+# Example Book
