@@ -71,7 +71,35 @@ describe('GitBook', function() {
       expect(book.description).to.be.undefined;
     }); // should parse readme
     
-    it('should throw when config is invalid', function() {
+    it('should throw when readme is missing', function() {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/invalid-readme/book.json':
+              return true;
+            case '/tmp/books/invalid-readme/README.md':
+              return false;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            switch (path) {
+            case '/tmp/books/invalid-readme/book.json':
+              return fs.readFileSync('test/data/books/invalid-readme/book.json', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      expect(function() {
+        new GitBook('/tmp/books/invalid-readme');
+      }).to.throw("Missing required GitBook readme at '/tmp/books/invalid-readme/README.md'");
+    }); // should throw when readme is missing
+    
+    it('should throw when config is malformed', function() {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -99,7 +127,7 @@ describe('GitBook', function() {
       expect(function() {
         new GitBook('/tmp/books/invalid-config');
       }).to.throw("Failed to parse GitBook configuration at '/tmp/books/invalid-config/book.json'");
-    }); // should throw when config is invalid
+    }); // should throw when config is malformed
     
   }); // constructor
   
