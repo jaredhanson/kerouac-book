@@ -578,9 +578,9 @@ describe('GitBook', function() {
         'fs': {
           existsSync: function(path) {
             switch (path) {
-            case '/tmp/books/escape/book.json':
+            case '/tmp/books/toc-noescape/book.json':
               return false;
-            case '/tmp/books/escape/README.md':
+            case '/tmp/books/toc-noescape/README.md':
               return true;
             }
             throw new Error('Unexpected path: ' + path);
@@ -590,8 +590,8 @@ describe('GitBook', function() {
             expect(encoding).to.equal('utf8');
             
             switch (path) {
-            case '/tmp/books/escape/README.md':
-              return fs.readFileSync('test/data/books/escape/README.md', 'utf8');
+            case '/tmp/books/toc-noescape/README.md':
+              return fs.readFileSync('test/data/books/toc-noescape/README.md', 'utf8');
             }
             throw new Error('Unexpected path: ' + path);
           },
@@ -600,15 +600,15 @@ describe('GitBook', function() {
             expect(encoding).to.equal('utf8');
             
             switch (path) {
-            case '/tmp/books/escape/SUMMARY.md':
-              return fs.readFile('test/data/books/escape/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/toc-noescape/SUMMARY.md':
+              return fs.readFile('test/data/books/toc-noescape/SUMMARY.md', 'utf8', callback);
             }
             throw new Error('Unexpected path: ' + path);
           }
         }
       });
       
-      var book = new GitBook('/tmp/books/escape');
+      var book = new GitBook('/tmp/books/toc-noescape');
       book.chapters(function(err, chapters) {
         if (err) { return done(err); }
         
