@@ -106,8 +106,6 @@ describe('GitBook', function() {
             switch (path) {
             case '/tmp/books/invalid-config/book.json':
               return true;
-            case '/tmp/books/invalid-config/README.md':
-              return true;
             }
             throw new Error('Unexpected path: ' + path);
           },
@@ -116,8 +114,6 @@ describe('GitBook', function() {
             switch (path) {
             case '/tmp/books/invalid-config/book.json':
               return fs.readFileSync('test/data/books/invalid-config/book.json', 'utf8');
-            case '/tmp/books/invalid-config/README.md':
-              return fs.readFileSync('test/data/books/invalid-config/README.md', 'utf8');
             }
             throw new Error('Unexpected path: ' + path);
           }
