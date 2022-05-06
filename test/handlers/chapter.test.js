@@ -25,7 +25,7 @@ describe('handlers/chapter', function() {
           title: 'Example Book'
         });
         expect(this.locals.page).to.deep.equal({
-          title: undefined
+          title: 'Example Book'
         });
         // TODO: This should be README.md
         expect(this.locals.file).to.deep.equal({

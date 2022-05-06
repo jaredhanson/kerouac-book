@@ -833,7 +833,7 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapter).to.deep.equal({
-          title: undefined,
+          title: 'Example Book',
           front: {},
           content: "# Example Book\n",
           format: 'md',
