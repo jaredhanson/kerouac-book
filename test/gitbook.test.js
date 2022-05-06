@@ -770,7 +770,7 @@ describe('GitBook', function() {
         
         expect(chapter).to.deep.equal({
           format: 'md',
-          head: {},
+          front: {},
           title: 'Chapter 1',
           content: "# Chapter 1\n\n",
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
@@ -834,7 +834,7 @@ describe('GitBook', function() {
         
         expect(chapter).to.deep.equal({
           format: 'md',
-          head: {},
+          front: {},
           title: undefined,
           content: "# Example Book\n",
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
@@ -900,7 +900,7 @@ describe('GitBook', function() {
         
         expect(chapter).to.deep.equal({
           format: 'md',
-          head: {},
+          front: {},
           title: 'Preface',
           content: "# Preface\n",
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
