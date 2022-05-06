@@ -627,7 +627,7 @@ describe('GitBook', function() {
       });
     }); // should not yield chapters when only readme
     
-    it('should not HTML escape characters', function(done) {
+    it('should not HTML escape characters in title', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -671,7 +671,7 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    }); // should not HTML escape characters
+    }); // should not HTML escape characters in title
     
   }); // #chapters
   
