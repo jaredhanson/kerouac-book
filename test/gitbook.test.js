@@ -529,7 +529,7 @@ describe('GitBook', function() {
       });
     }); // should yield chapters with subchapters and include parts when option is set
     
-    it('should yield chapters then parts and include parts when option is set', function(done) {
+    it('should yield chapters followed by parts', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -581,7 +581,7 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    }); // should yield chapters then parts and include parts when option is set
+    }); // should yield chapters followed by parts
     
     it('should not yield chapters when only readme', function(done) {
       var GitBook = $require('../lib/gitbook', {
