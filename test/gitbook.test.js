@@ -769,10 +769,10 @@ describe('GitBook', function() {
         if (err) { return done(err); }
         
         expect(chapter).to.deep.equal({
-          format: 'md',
-          front: {},
           title: 'Chapter 1',
+          front: {},
           content: "# Chapter 1\n\n",
+          format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
