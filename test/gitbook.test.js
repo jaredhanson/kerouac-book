@@ -1191,6 +1191,72 @@ describe('GitBook', function() {
       });
     }); // should yield preface included in summary
     
+    it('should yield preface from overridden structure', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/structure-readme/book.json':
+              return true;
+            case '/tmp/books/structure-readme/HOME.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/structure-readme/book.json':
+              return fs.readFileSync('test/data/books/structure-readme/book.json', 'utf8');
+            case '/tmp/books/structure-readme/HOME.md':
+              return fs.readFileSync('test/data/books/structure-readme/HOME.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/structure-readme/SUMMARY.md':
+              return fs.readFile('test/data/books/structure-readme/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/structure-readme/HOME.md':
+              return fs.readFile('test/data/books/structure-readme/HOME.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          stat: function(path, callback) {
+            expect(path).to.equal('/tmp/books/structure-readme/HOME.md');
+            
+            process.nextTick(function() {
+              return callback(null, {
+                mtime: new Date('2022-01-05T21:48:14.573Z'),
+                birthtime: new Date('2021-04-09T22:23:05.773Z')
+              });
+            });
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/structure-readme');
+      book.preface(function(err, chapter) {
+        if (err) { return done(err); }
+        
+        expect(chapter).to.deep.equal({
+          title: 'Example Book',
+          front: {},
+          content: "# Example Book\n",
+          format: 'md',
+          createdAt: new Date('2021-04-09T22:23:05.773Z'),
+          modifiedAt: new Date('2022-01-05T21:48:14.573Z')
+        });
+        done();
+      });
+    }); // should yield preface from overridden structure
+    
   }); // #preface
   
 });
