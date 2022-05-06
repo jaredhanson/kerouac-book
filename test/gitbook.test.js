@@ -991,6 +991,72 @@ describe('GitBook', function() {
       });
     }); // should yield preface included in summary
     
+    it('should yield chapter relative to root', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/root/book.json':
+              return true;
+            case '/tmp/books/root/docs/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/root/book.json':
+              return fs.readFileSync('test/data/books/root/book.json', 'utf8');
+            case '/tmp/books/root/docs/README.md':
+              return fs.readFileSync('test/data/books/root/docs/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/root/docs/SUMMARY.md':
+              return fs.readFile('test/data/books/root/docs/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/root/docs/chapter-1.md':
+              return fs.readFile('test/data/books/root/docs/chapter-1.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          stat: function(path, callback) {
+            expect(path).to.equal('/tmp/books/root/docs/chapter-1.md');
+            
+            process.nextTick(function() {
+              return callback(null, {
+                mtime: new Date('2022-01-05T21:48:14.573Z'),
+                birthtime: new Date('2021-04-09T22:23:05.773Z')
+              });
+            });
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/root');
+      book.chapter('chapter-1', function(err, chapter) {
+        if (err) { return done(err); }
+        
+        expect(chapter).to.deep.equal({
+          title: 'Chapter 1',
+          front: {},
+          content: "# Chapter 1\n",
+          format: 'md',
+          createdAt: new Date('2021-04-09T22:23:05.773Z'),
+          modifiedAt: new Date('2022-01-05T21:48:14.573Z')
+        });
+        done();
+      });
+    }); // should yield chapter relative to root
+    
     it('should yield preface from overridden structure', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
