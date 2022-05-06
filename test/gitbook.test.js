@@ -352,7 +352,7 @@ describe('GitBook', function() {
       });
     }); // should yield chapters and include parts when option is set
     
-    it('should yield chapters and subchapters but omit parts', function(done) {
+    it('should yield chapters with subchapters but omit parts', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -431,7 +431,7 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    }); // should yield chapters and subchapters but omit parts
+    }); // should yield chapters with subchapters but omit parts
     
     it('should yield chapters with subchapters and include parts when option is set', function(done) {
       var GitBook = $require('../lib/gitbook', {
@@ -626,6 +626,55 @@ describe('GitBook', function() {
         done();
       });
     }); // should not yield chapters when only readme
+    
+    it('should yield chapters from overridden structure', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/structure-summary/book.json':
+              return true;
+            case '/tmp/books/structure-summary/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/structure-summary/book.json':
+              return fs.readFileSync('test/data/books/structure-summary/book.json', 'utf8');
+            case '/tmp/books/structure-summary/README.md':
+              return fs.readFileSync('test/data/books/structure-summary/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/structure-summary/TOC.md':
+              return fs.readFile('test/data/books/structure-summary/TOC.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/structure-summary');
+      book.chapters(function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          { title: 'Chapter 1', path: 'chapter-1.md' },
+          { title: 'Chapter 2', path: 'chapter-2.md' }
+        ]);
+        done();
+      });
+    }); // should yield chapters from overridden structure
     
     it('should not HTML escape characters in title', function(done) {
       var GitBook = $require('../lib/gitbook', {
