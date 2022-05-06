@@ -829,14 +829,14 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/simple');
-      book.chapter('index', function(err, chapter) {
+      book.chapter('README', function(err, chapter) {
         if (err) { return done(err); }
         
         expect(chapter).to.deep.equal({
-          format: 'md',
-          front: {},
           title: undefined,
+          front: {},
           content: "# Example Book\n",
+          format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -895,14 +895,14 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/standard');
-      book.chapter('index', function(err, chapter) {
+      book.chapter('README', function(err, chapter) {
         if (err) { return done(err); }
         
         expect(chapter).to.deep.equal({
-          format: 'md',
-          front: {},
           title: 'Preface',
+          front: {},
           content: "# Preface\n",
+          format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
