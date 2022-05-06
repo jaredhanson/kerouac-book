@@ -673,6 +673,45 @@ describe('GitBook', function() {
       });
     }); // should not HTML escape characters in title
     
+    it('should yield error when encountering file system error', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/readme/book.json':
+              return false;
+            case '/tmp/books/readme/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/readme/README.md':
+              return fs.readFileSync('test/data/books/readme/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            process.nextTick(function() {
+              return callback(new Error('something went wrong'));
+            });
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/readme');
+      book.chapters(function(err, chapters) {
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('something went wrong');
+        done();
+      });
+    }); // should yield error when encountering file system error
+    
   }); // #chapters
   
   describe('#chapter', function() {
