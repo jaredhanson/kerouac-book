@@ -237,7 +237,7 @@ describe('GitBook', function() {
       });
     }); // should yield chapters with subchapters
     
-    it('should omit parts', function(done) {
+    it('should yield chapters and omit parts', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -285,9 +285,9 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    }); // should omit parts
+    }); // should yield chapters and omit parts
     
-    it('should include parts when option is set', function(done) {
+    it('should yield chapters and include parts when option is set', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
           existsSync: function(path) {
@@ -350,7 +350,7 @@ describe('GitBook', function() {
         ]);
         done();
       });
-    }); // should include parts when option is set
+    }); // should yield chapters and include parts when option is set
     
     it('should yield parts with subchapters but omit parts', function(done) {
       var GitBook = $require('../lib/gitbook', {
