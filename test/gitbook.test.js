@@ -71,6 +71,38 @@ describe('GitBook', function() {
       expect(book.description).to.be.undefined;
     }); // should parse readme
     
+    it('should parse readme relative to root', function() {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/root/book.json':
+              return true;
+            case '/tmp/books/root/docs/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/root/book.json':
+              return fs.readFileSync('test/data/books/root/book.json', 'utf8');
+            case '/tmp/books/root/docs/README.md':
+              return fs.readFileSync('test/data/books/root/docs/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);;
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/root');
+      expect(book.title).to.equal('Example Book');
+      expect(book.description).to.be.undefined;
+    }); // should parse readme relative to root
+    
     it('should throw when readme is missing', function() {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
