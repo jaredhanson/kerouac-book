@@ -39,6 +39,10 @@ describe('GitBook', function() {
       var book = new GitBook('/tmp/books/standard');
       expect(book.title).to.equal('Example Book');
       expect(book.description).to.equal('This book is for use in illustrative examples.');
+      expect(book.config).to.deep.equal({
+        title: 'Example Book',
+        description: 'This book is for use in illustrative examples.'
+      });
     }); // should parse config
     
     it('should parse readme', function() {
@@ -69,6 +73,7 @@ describe('GitBook', function() {
       var book = new GitBook('/tmp/books/readme');
       expect(book.title).to.equal('Example Book');
       expect(book.description).to.be.undefined;
+      expect(book.config).to.be.undefined;
     }); // should parse readme
     
     it('should parse readme relative to root', function() {
