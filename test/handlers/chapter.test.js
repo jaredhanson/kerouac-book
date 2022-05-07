@@ -182,6 +182,4 @@ describe('handlers/chapter', function() {
     
   }); // filters
   
-  
-  
 });
