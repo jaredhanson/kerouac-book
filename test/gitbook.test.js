@@ -853,6 +853,7 @@ describe('GitBook', function() {
           title: 'Chapter 1',
           front: {},
           content: "# Chapter 1\n\n",
+          path: 'chapter-1.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -917,6 +918,7 @@ describe('GitBook', function() {
           title: 'Example Book',
           front: {},
           content: "# Example Book\n",
+          path: 'README.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -983,6 +985,7 @@ describe('GitBook', function() {
           title: 'Preface',
           front: {},
           content: "# Preface\n",
+          path: 'README.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -1049,6 +1052,7 @@ describe('GitBook', function() {
           title: 'Chapter 1',
           front: {},
           content: "# Chapter 1\n",
+          path: 'chapter-1.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -1115,6 +1119,7 @@ describe('GitBook', function() {
           title: 'Example Book',
           front: {},
           content: "# Example Book\n",
+          path: 'HOME.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -1183,6 +1188,7 @@ describe('GitBook', function() {
           title: 'Example Book',
           front: {},
           content: "# Example Book\n",
+          path: 'README.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -1249,6 +1255,7 @@ describe('GitBook', function() {
           title: 'Preface',
           front: {},
           content: "# Preface\n",
+          path: 'README.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
@@ -1315,6 +1322,7 @@ describe('GitBook', function() {
           title: 'Example Book',
           front: {},
           content: "# Example Book\n",
+          path: 'HOME.md',
           format: 'md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
