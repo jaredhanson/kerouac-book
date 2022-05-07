@@ -27,9 +27,8 @@ describe('handlers/chapter', function() {
         expect(this.locals.page).to.deep.equal({
           title: 'Example Book'
         });
-        // TODO: This should be README.md
         expect(this.locals.file).to.deep.equal({
-          path: 'index.md'
+          path: 'README.md'
         });
         expect(this.locals.summary).to.deep.equal({
           parts: [
