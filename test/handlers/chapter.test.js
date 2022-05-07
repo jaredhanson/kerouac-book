@@ -24,6 +24,10 @@ describe('handlers/chapter', function() {
         expect(this.locals.book).to.deep.equal({
           title: 'Example Book'
         });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
+        });
         expect(this.locals.page).to.deep.equal({
           title: 'Example Book'
         });
@@ -68,6 +72,10 @@ describe('handlers/chapter', function() {
         expect(this.locals.book).to.deep.equal({
           title: 'Example Book'
         });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
+        });
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1'
         });
@@ -107,6 +115,10 @@ describe('handlers/chapter', function() {
         
         expect(this.locals.book).to.deep.equal({
           title: 'Example Book'
+        });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
         });
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1'
