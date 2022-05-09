@@ -1261,6 +1261,73 @@ describe('GitBook', function() {
       });
     }); // should yield preface from overridden structure
     
+    it('should yield preface included in summary from overridden structure', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/standard-structure/book.json':
+              return true;
+            case '/tmp/books/standard-structure/HOME.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/standard-structure/book.json':
+              return fs.readFileSync('test/data/books/standard-structure/book.json', 'utf8');
+            case '/tmp/books/standard-structure/HOME.md':
+              return fs.readFileSync('test/data/books/standard-structure/HOME.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/standard-structure/TOC.md':
+              return fs.readFile('test/data/books/standard-structure/TOC.md', 'utf8', callback);
+            case '/tmp/books/standard-structure/HOME.md':
+              return fs.readFile('test/data/books/standard-structure/HOME.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          stat: function(path, callback) {
+            expect(path).to.equal('/tmp/books/standard-structure/HOME.md');
+            
+            process.nextTick(function() {
+              return callback(null, {
+                mtime: new Date('2022-01-05T21:48:14.573Z'),
+                birthtime: new Date('2021-04-09T22:23:05.773Z')
+              });
+            });
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/standard-structure');
+      book.preface(function(err, chapter) {
+        if (err) { return done(err); }
+        
+        expect(chapter).to.deep.equal({
+          title: 'Preface',
+          front: {},
+          content: "# Preface\n",
+          path: 'HOME.md',
+          format: 'md',
+          createdAt: new Date('2021-04-09T22:23:05.773Z'),
+          modifiedAt: new Date('2022-01-05T21:48:14.573Z')
+        });
+        done();
+      });
+    }); // should yield preface included in summary from overrriden structure
+    
   }); // #preface
   
 });

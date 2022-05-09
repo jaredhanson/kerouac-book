@@ -1,0 +1,8 @@
+{
+  "title": "Example Book",
+  "description": "This book is for use in illustrative examples.",
+  "structure": {
+    "readme": "HOME.md",
+    "summary": "TOC.md"
+  }
+}
