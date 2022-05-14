@@ -39,6 +39,9 @@ describe('handlers/chapter', function() {
           mtime: this.locals.file.mtime,
           type: 'markdown'
         });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
+        });
         expect(this.locals.summary).to.deep.equal({
           parts: [
             {
