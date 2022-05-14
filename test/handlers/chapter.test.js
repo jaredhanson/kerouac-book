@@ -55,6 +55,8 @@ describe('handlers/chapter', function() {
         expect(this.locals.output).to.deep.equal({
           name: 'website'
         });
+        expect(this.locals.config).to.deep.equal({
+        });
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);
         done();
