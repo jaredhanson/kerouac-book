@@ -31,7 +31,12 @@ describe('handlers/chapter', function() {
           time: this.locals.gitbook.time
         });
         expect(this.locals.page).to.deep.equal({
-          title: 'Chapter 1'
+          title: 'Chapter 1',
+          previous: null,
+          next: {
+            title: 'Chapter 2',
+            path: 'chapter-2.md'
+          }
         });
         expect(this.locals.file.mtime).to.be.an.instanceof(Date);
         expect(this.locals.file).to.deep.equal({
@@ -83,7 +88,12 @@ describe('handlers/chapter', function() {
           time: this.locals.gitbook.time
         });
         expect(this.locals.page).to.deep.equal({
-          title: 'Chapter 1'
+          title: 'Chapter 1',
+          previous: null,
+          next: {
+            title: 'Chapter 2',
+            path: 'part-1/chapter-2.md'
+          }
         });
         expect(this.locals.summary).to.deep.equal({
           parts: [
