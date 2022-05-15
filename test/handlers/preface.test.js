@@ -13,8 +13,6 @@ describe('handlers/preface', function() {
     var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
-      .request(function(page) {
-      })
       .finish(function() {
         expect(this).to.render('book/chapter')
           .with.locals({ title: 'Example Book' })
@@ -50,7 +48,6 @@ describe('handlers/preface', function() {
         expect(this.modifiedAt).to.be.an.instanceof(Date);
         done();
       })
-      .next(done)
       .generate();
   }); // should render preface
   
