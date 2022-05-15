@@ -95,6 +95,15 @@ describe('handlers/chapter', function() {
             path: 'part-1/chapter-2.md'
           }
         });
+        expect(this.locals.file.mtime).to.be.an.instanceof(Date);
+        expect(this.locals.file).to.deep.equal({
+          path: 'part-1/chapter-1.md',
+          mtime: this.locals.file.mtime,
+          type: 'markdown'
+        });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
+        });
         expect(this.locals.summary).to.deep.equal({
           parts: [
             {
@@ -118,6 +127,11 @@ describe('handlers/chapter', function() {
               ]
             }
           ]
+        });
+        expect(this.locals.output).to.deep.equal({
+          name: 'website'
+        });
+        expect(this.locals.config).to.deep.equal({
         });
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);
