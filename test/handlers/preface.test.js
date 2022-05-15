@@ -26,13 +26,18 @@ describe('handlers/preface', function() {
           time: this.locals.gitbook.time
         });
         expect(this.locals.page).to.deep.equal({
-          title: 'Example Book'
+          title: 'Example Book',
+          previous: null,
+          next: null
         });
         expect(this.locals.file.mtime).to.be.an.instanceof(Date);
         expect(this.locals.file).to.deep.equal({
           path: 'README.md',
           mtime: this.locals.file.mtime,
           type: 'markdown'
+        });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
         });
         expect(this.locals.summary).to.deep.equal({
           parts: [
@@ -43,6 +48,11 @@ describe('handlers/preface', function() {
               ]
             }
           ]
+        });
+        expect(this.locals.output).to.deep.equal({
+          name: 'website'
+        });
+        expect(this.locals.config).to.deep.equal({
         });
         expect(this.createdAt).to.be.an.instanceof(Date);
         expect(this.modifiedAt).to.be.an.instanceof(Date);
