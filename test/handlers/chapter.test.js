@@ -18,9 +18,6 @@ describe('handlers/chapter', function() {
       })
       .finish(function() {
         expect(this).to.render('book/chapter')
-          .with.locals({
-            title: 'Example Book: Chapter 1',
-          })
           .and.beginWith.content('# Chapter 1').of.format('md');
           
         expect(this.locals.book).to.deep.equal({

@@ -15,7 +15,6 @@ describe('handlers/preface', function() {
     chai.kerouac.page(factory(book, 'book/chapter'))
       .finish(function() {
         expect(this).to.render('book/chapter')
-          .with.locals({ title: 'Example Book' })
           .and.beginWith.content('# Example Book').of.format('md');
         
         expect(this.locals.book).to.deep.equal({
