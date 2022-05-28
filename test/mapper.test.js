@@ -6,7 +6,7 @@ var GitBook = require('../lib/gitbook');
 
 describe('Mapper', function() {
   
-  it('should request sitemap', function(done) {
+  it('should request preface and chapters when preface is not included in contents', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
     
     chai.kerouac.map(new Mapper(book))
@@ -20,6 +20,6 @@ describe('Mapper', function() {
         done();
       })
       .generate();
-  }); // should request sitemap
+  }); // should request preface and chapters when preface is not included in contents
   
 });
