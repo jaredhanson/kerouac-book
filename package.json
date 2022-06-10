@@ -1,27 +1,31 @@
 {
-  "name": "kerouac-book",
+  "name": "kerouac-gitbook",
   "version": "0.0.0",
-  "description": "Kerouac app that generates a book section of a site.",
+  "description": "Kerouac app that generates a website from a GitBook.",
   "keywords": [
     "gitbook"
   ],
   "author": {
     "name": "Jared Hanson",
     "email": "jaredhanson@gmail.com",
-    "url": "http://jaredhanson.net/"
+    "url": "https://www.jaredhanson.me/"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/jaredhanson/kerouac-book.git"
   },
   "bugs": {
-    "url": "http://github.com/jaredhanson/kerouac-book/issues"
+    "url": "https://github.com/jaredhanson/kerouac-book/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/jaredhanson"
   },
   "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
+      "url": "https://opensource.org/licenses/MIT"
     }
   ],
   "main": "./lib",

@@ -1,1 +1,1 @@
-# kerouac-book
+# kerouac-gitbook
