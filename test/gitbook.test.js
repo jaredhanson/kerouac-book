@@ -202,7 +202,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/simple');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -249,7 +249,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/subchapters');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -310,7 +310,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/parts');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -360,7 +360,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/parts');
-      book.chapters({ includeParts: true }, function(err, chapters) {
+      book.contents({ includeParts: true }, function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -425,7 +425,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/parts-subchapters');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -506,7 +506,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/parts-subchapters');
-      book.chapters({ includeParts: true }, function(err, chapters) {
+      book.contents({ includeParts: true }, function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -602,7 +602,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/parts-middle');
-      book.chapters({ includeParts: true }, function(err, chapters) {
+      book.contents({ includeParts: true }, function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -656,7 +656,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/readme');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.be.undefined;
@@ -702,7 +702,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/structure-summary');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -749,7 +749,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/toc-noescape');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         if (err) { return done(err); }
         
         expect(chapters).to.deep.equal([
@@ -791,7 +791,7 @@ describe('GitBook', function() {
       });
       
       var book = new GitBook('/tmp/books/readme');
-      book.chapters(function(err, chapters) {
+      book.contents(function(err, chapters) {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.message).to.equal('something went wrong');
         done();
