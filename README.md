@@ -45,4 +45,4 @@ site.generate({
 
 [The MIT License](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2012-2022 Jared Hanson <[https://www.jaredhanson.me/](https://www.jaredhanson.me/)>
+Copyright (c) 2017-2022 Jared Hanson <[https://www.jaredhanson.me/](https://www.jaredhanson.me/)>
