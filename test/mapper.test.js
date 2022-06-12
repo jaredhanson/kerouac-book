@@ -38,4 +38,22 @@ describe('Mapper', function() {
       .generate();
   }); // should request chapters when preface is included in contents
   
+  it('should request subchapters', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/subchapters'));
+    
+    chai.kerouac.map(new Mapper(book))
+      .close(function() {
+        console.log(this.paths);
+        
+        expect(this).to.request([
+          '/index.html',
+          '/chapter-1/README.html',
+          '/chapter-2/README.html',
+          '/downloads/html.html'
+        ]);
+        done();
+      })
+      .generate();
+  }); // should request subchapters
+  
 });
