@@ -48,7 +48,11 @@ describe('Mapper', function() {
         expect(this).to.request([
           '/index.html',
           '/chapter-1/README.html',
+          '/chapter-1/subchapter-1.html',
+          '/chapter-1/subchapter-2.html',
           '/chapter-2/README.html',
+          '/chapter-2/subchapter-1.html',
+          '/chapter-2/subchapter-2.html',
           '/downloads/html.html'
         ]);
         done();
