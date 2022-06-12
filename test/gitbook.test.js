@@ -164,7 +164,7 @@ describe('GitBook', function() {
     
   }); // constructor
   
-  describe('#chapters', function() {
+  describe('#contents', function() {
     
     it('should yield chapters', function(done) {
       var GitBook = $require('../lib/gitbook', {
