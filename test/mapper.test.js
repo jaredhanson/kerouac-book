@@ -6,7 +6,7 @@ var GitBook = require('../lib/gitbook');
 
 describe('Mapper', function() {
   
-  it('should request preface and chapters when preface is not included in contents', function(done) {
+  it('should request preface followed by chapters when preface is not included in contents', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
     
     chai.kerouac.map(new Mapper(book))
@@ -38,7 +38,7 @@ describe('Mapper', function() {
       .generate();
   }); // should request chapters when preface is included in contents
   
-  it('should request subchapters', function(done) {
+  it('should request chapters and subchapters', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/subchapters'));
     
     chai.kerouac.map(new Mapper(book))
@@ -58,6 +58,20 @@ describe('Mapper', function() {
         done();
       })
       .generate();
-  }); // should request subchapters
+  }); // should request chapters and subchapters
+  
+  it('should request preface when only readme', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/readme'));
+    
+    chai.kerouac.map(new Mapper(book))
+      .close(function() {
+        expect(this).to.request([
+          '/index.html',
+          '/downloads/html.html'
+        ]);
+        done();
+      })
+      .generate();
+  }); // should request preface when only readme
   
 });
