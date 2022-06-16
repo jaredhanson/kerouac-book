@@ -74,4 +74,20 @@ describe('Mapper', function() {
       .generate();
   }); // should request preface when only readme
   
+  it('should not duplicate requests for chapters pointed to by anchors', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/anchors'));
+    
+    chai.kerouac.map(new Mapper(book))
+      .close(function() {
+        expect(this).to.request([
+          '/index.html',
+          '/chapter-1/README.html',
+          '/chapter-2/README.html',
+          '/downloads/html.html'
+        ]);
+        done();
+      })
+      .generate();
+  }); // should not duplicate requests for chapters pointed to by anchors
+  
 });
