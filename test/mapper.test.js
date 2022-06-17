@@ -1,4 +1,5 @@
 var chai = require('chai');
+var sinon = require('sinon');
 var Mapper = require('../lib/mapper');
 var path = require('path');
 var GitBook = require('../lib/gitbook');
@@ -41,8 +42,6 @@ describe('Mapper', function() {
     
     chai.kerouac.map(new Mapper(book))
       .close(function() {
-        console.log(this.paths);
-        
         expect(this).to.request([
           '/index.html',
           '/chapter-1/README.html',
@@ -100,5 +99,19 @@ describe('Mapper', function() {
       })
       .generate();
   }); // should request HTML-formatted download when option is set
+  
+  it('should error when contents cannot be read', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
+    sinon.stub(book, 'contents').yieldsAsync(new Error('something went wrong'));
+    
+    chai.kerouac.map(new Mapper(book))
+      .close(function() {
+        expect(this).to.request([
+          '/index.html'
+        ]).and.error('something went wrong');
+        done();
+      })
+      .generate();
+  }); // should error when contents cannot be read
   
 });
