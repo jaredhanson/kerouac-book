@@ -14,8 +14,7 @@ describe('Mapper', function() {
         expect(this).to.request([
           '/index.html',
           '/chapter-1.html',
-          '/chapter-2.html',
-          '/downloads/html.html'
+          '/chapter-2.html'
         ]);
         done();
       })
@@ -30,8 +29,7 @@ describe('Mapper', function() {
         expect(this).to.request([
           '/index.html',
           '/chapter-1.html',
-          '/chapter-2.html',
-          '/downloads/html.html'
+          '/chapter-2.html'
         ]);
         done();
       })
@@ -52,8 +50,7 @@ describe('Mapper', function() {
           '/chapter-1/subchapter-2.html',
           '/chapter-2/README.html',
           '/chapter-2/subchapter-1.html',
-          '/chapter-2/subchapter-2.html',
-          '/downloads/html.html'
+          '/chapter-2/subchapter-2.html'
         ]);
         done();
       })
@@ -66,8 +63,7 @@ describe('Mapper', function() {
     chai.kerouac.map(new Mapper(book))
       .close(function() {
         expect(this).to.request([
-          '/index.html',
-          '/downloads/html.html'
+          '/index.html'
         ]);
         done();
       })
@@ -82,12 +78,27 @@ describe('Mapper', function() {
         expect(this).to.request([
           '/index.html',
           '/chapter-1/README.html',
-          '/chapter-2/README.html',
-          '/downloads/html.html'
+          '/chapter-2/README.html'
         ]);
         done();
       })
       .generate();
   }); // should not duplicate requests for chapters pointed to by anchors
+  
+  it('should request HTML-formatted download when option is set', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
+    
+    chai.kerouac.map(new Mapper(book, true))
+      .close(function() {
+        expect(this).to.request([
+          '/index.html',
+          '/chapter-1.html',
+          '/chapter-2.html',
+          '/downloads/html.html'
+        ]);
+        done();
+      })
+      .generate();
+  }); // should request HTML-formatted download when option is set
   
 });
