@@ -274,6 +274,67 @@ describe('GitBook', function() {
       });
     }); // should yield chapters with subchapters
     
+    it('should yield chapters with subchapters and anchors in path', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/anchors/book.json':
+              return false;
+            case '/tmp/books/anchors/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/anchors/README.md':
+              return fs.readFileSync('test/data/books/anchors/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/anchors/SUMMARY.md':
+              return fs.readFile('test/data/books/anchors/SUMMARY.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/anchors');
+      book.contents(function(err, chapters) {
+        if (err) { return done(err); }
+        
+        expect(chapters).to.deep.equal([
+          {
+            title: 'Chapter 1',
+            path: 'chapter-1/README.md',
+            chapters: [
+              { title: 'Chapter 1-1', path: 'chapter-1/README.md#anchor1' },
+              { title: 'Chapter 1-2', path: 'chapter-1/README.md#anchor2' }
+            ]
+          },
+          {
+            title: 'Chapter 2',
+            path: 'chapter-2/README.md',
+            chapters: [
+              { title: 'Chapter 2-1', path: 'chapter-2/README.md#anchor1' },
+              { title: 'Chapter 2-2', path: 'chapter-2/README.md#anchor2' }
+            ]
+          }
+        ]);
+        done();
+      });
+    }); // should yield chapters with subchapters and anchors in path
+    
     it('should yield chapters but omit parts', function(done) {
       var GitBook = $require('../lib/gitbook', {
         'fs': {
