@@ -7,22 +7,7 @@ var GitBook = require('../lib/gitbook');
 
 describe('Mapper', function() {
   
-  it('should request preface followed by chapters when preface is not included in contents', function(done) {
-    var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
-    
-    chai.kerouac.map(new Mapper(book))
-      .close(function() {
-        expect(this).to.request([
-          '/index.html',
-          '/chapter-1.html',
-          '/chapter-2.html'
-        ]);
-        done();
-      })
-      .generate();
-  }); // should request preface and chapters when preface is not included in contents
-  
-  it('should request chapters when preface is included in contents', function(done) {
+  it('should request chapters', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/standard'));
     
     chai.kerouac.map(new Mapper(book))
@@ -35,7 +20,22 @@ describe('Mapper', function() {
         done();
       })
       .generate();
-  }); // should request chapters when preface is included in contents
+  }); // should request chapters
+  
+  it('should request preface when preface is not included in contents', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
+    
+    chai.kerouac.map(new Mapper(book))
+      .close(function() {
+        expect(this).to.request([
+          '/index.html',
+          '/chapter-1.html',
+          '/chapter-2.html'
+        ]);
+        done();
+      })
+      .generate();
+  }); // should request preface when preface is not included in contents
   
   it('should request chapters and subchapters', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/subchapters'));
@@ -100,7 +100,7 @@ describe('Mapper', function() {
       .generate();
   }); // should request HTML-formatted download when option is set
   
-  it('should error when contents cannot be read', function(done) {
+  it('should yield error when encountering error reading contents', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
     sinon.stub(book, 'contents').yieldsAsync(new Error('something went wrong'));
     
@@ -112,6 +112,6 @@ describe('Mapper', function() {
         done();
       })
       .generate();
-  }); // should error when contents cannot be read
+  }); // should yield error when encountering error reading contents
   
 });
