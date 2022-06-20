@@ -3,6 +3,7 @@
 var $require = require('proxyquire');
 var expect = require('chai').expect;
 var chai = require('chai');
+var sinon = require('sinon');
 var GitBook = require('../lib/gitbook');
 var fs = require('fs');
 
@@ -1248,6 +1249,42 @@ describe('GitBook', function() {
         done();
       });
     }); // should yield chapter linked to with anchor
+    
+    it('should yield error when encountering error reading contents', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/simple/book.json':
+              return false;
+            case '/tmp/books/simple/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/simple/README.md':
+              return fs.readFileSync('test/data/books/simple/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/simple');
+      sinon.stub(book, 'contents').yieldsAsync(new Error('something went wrong'));
+      
+      book.chapter('chapter-1', function(err, chapter) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('something went wrong')
+        expect(chapter).to.be.undefined;
+        done();
+      });
+    }); // should yield error when encountering error reading contents
     
   }); // #chapter
   
