@@ -1286,6 +1286,108 @@ describe('GitBook', function() {
       });
     }); // should yield error when encountering error reading contents
     
+    it('should yield error when encountering error reading file', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/simple/book.json':
+              return false;
+            case '/tmp/books/simple/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/simple/README.md':
+              return fs.readFileSync('test/data/books/simple/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/simple/SUMMARY.md':
+              return fs.readFile('test/data/books/simple/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/simple/chapter-1.md':
+              return process.nextTick(function() {
+                return callback(new Error('fs.readFile: something went wrong'));
+              });
+            }
+            throw new Error('Unexpected path: ' + path);
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/simple');
+      book.chapter('chapter-1', function(err, chapter) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('fs.readFile: something went wrong')
+        expect(chapter).to.be.undefined;
+        done();
+      });
+    }); // should yield error when encountering error reading file
+    
+    it('should yield error when encountering error stating file', function(done) {
+      var GitBook = $require('../lib/gitbook', {
+        'fs': {
+          existsSync: function(path) {
+            switch (path) {
+            case '/tmp/books/simple/book.json':
+              return false;
+            case '/tmp/books/simple/README.md':
+              return true;
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFileSync: function(path, encoding) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/simple/README.md':
+              return fs.readFileSync('test/data/books/simple/README.md', 'utf8');
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          readFile: function(path, encoding, callback) {
+            expect(encoding).to.equal('utf8');
+            
+            switch (path) {
+            case '/tmp/books/simple/SUMMARY.md':
+              return fs.readFile('test/data/books/simple/SUMMARY.md', 'utf8', callback);
+            case '/tmp/books/simple/chapter-1.md':
+              return fs.readFile('test/data/books/simple/chapter-1.md', 'utf8', callback);
+            }
+            throw new Error('Unexpected path: ' + path);
+          },
+          
+          stat: function(path, callback) {
+            expect(path).to.equal('/tmp/books/simple/chapter-1.md');
+            
+            process.nextTick(function() {
+              return callback(new Error('fs.stat: something went wrong'));
+            });
+          }
+        }
+      });
+      
+      var book = new GitBook('/tmp/books/simple');
+      book.chapter('chapter-1', function(err, chapter) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('fs.stat: something went wrong')
+        expect(chapter).to.be.undefined;
+        done();
+      });
+    }); // should yield error when encountering error stating file
+    
   }); // #chapter
   
   describe('#preface', function() {
