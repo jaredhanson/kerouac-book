@@ -137,6 +137,92 @@ describe('handlers/chapter', function() {
       .generate();
   }); // should render with table of contents containing parts
   
+  // WIP
+  it('should render with table of contents containing anchors', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/books/anchors'));
+    
+    chai.kerouac.page(factory(book, 'book/chapter'))
+      .request(function(page) {
+        page.params = { 0: 'chapter-1/README' };
+      })
+      .finish(function() {
+        expect(this).to.render('book/chapter')
+          .and.beginWith.content('# Chapter 1').of.format('md');
+        
+        expect(this.locals.book).to.deep.equal({
+          title: 'Example Book'
+        });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
+        });
+        /*
+        expect(this.locals.page).to.deep.equal({
+          title: 'Chapter 1',
+          previous: null,
+          next: {
+            title: 'Chapter 2',
+            path: 'part-1/chapter-2.md'
+          }
+        });
+        */
+        expect(this.locals.file.mtime).to.be.an.instanceof(Date);
+        expect(this.locals.file).to.deep.equal({
+          path: 'chapter-1/README.md',
+          mtime: this.locals.file.mtime,
+          type: 'markdown'
+        });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
+        });
+        console.log(this.locals.summary);
+        
+        /*
+        expect(this.locals.summary).to.deep.equal({
+          parts: [
+            
+          ]
+        });
+        */
+        
+        /*
+        expect(this.locals.summary).to.deep.equal({
+          parts: [
+            {
+              title: 'Part 1',
+              articles: [
+                { title: 'Chapter 1', path: 'part-1/chapter-1.md' },
+                { title: 'Chapter 2', path: 'part-1/chapter-2.md' }
+              ]
+            },
+            {
+              title: 'Part 2',
+              articles: [
+                { title: 'Chapter 3', path: 'part-2/chapter-3.md' },
+                { title: 'Chapter 4', path: 'part-2/chapter-4.md' }
+              ]
+            },
+            {
+              divider: true,
+              articles: [
+                { title: 'Chapter 5', path: 'part-3/chapter-5.md' }
+              ]
+            }
+          ]
+        });
+        */
+        expect(this.locals.output).to.deep.equal({
+          name: 'website'
+        });
+        expect(this.locals.config).to.deep.equal({
+        });
+        expect(this.createdAt).to.be.an.instanceof(Date);
+        expect(this.modifiedAt).to.be.an.instanceof(Date);
+        done();
+      })
+      .generate();
+  }); // should render with table of contents containing anchors
+  
   describe('filters', function() {
     
     describe('resolveFile', function() {
