@@ -66,6 +66,84 @@ describe('handlers/chapter', function() {
       .generate();
   }); // should render chapter
   
+  it('should render subchapter at end of chapter', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/books/subchapters'));
+    
+    chai.kerouac.page(factory(book, 'book/chapter'))
+      .request(function(page) {
+        page.params = { 0: 'chapter-1/subchapter-2' };
+      })
+      .finish(function() {
+        expect(this).to.render('book/chapter')
+          .and.beginWith.content('# Chapter 1').of.format('md');
+          
+        expect(this.locals.book).to.deep.equal({
+          title: 'Example Book'
+        });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
+        });
+        expect(this.locals.page).to.deep.equal({
+          title: 'Chapter 1-2',
+          previous: {
+            title: 'Chapter 1-1',
+            path: 'chapter-1/subchapter-1.md'
+          },
+          next: {
+            title: 'Chapter 2',
+            path: 'chapter-2/README.md',
+            articles: [
+              { title: 'Chapter 2-1', path: 'chapter-2/subchapter-1.md' },
+              { title: 'Chapter 2-2', path: 'chapter-2/subchapter-2.md' }
+            ]
+          }
+        });
+        expect(this.locals.file.mtime).to.be.an.instanceof(Date);
+        expect(this.locals.file).to.deep.equal({
+          path: 'chapter-1/subchapter-2.md',
+          mtime: this.locals.file.mtime,
+          type: 'markdown'
+        });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
+        });
+        expect(this.locals.summary).to.deep.equal({
+          parts: [
+            {
+              articles: [
+                {
+                  title: 'Chapter 1',
+                  path: 'chapter-1/README.md',
+                  articles: [
+                    { title: 'Chapter 1-1', path: 'chapter-1/subchapter-1.md' },
+                    { title: 'Chapter 1-2', path: 'chapter-1/subchapter-2.md' }
+                  ]
+                },
+                {
+                  title: 'Chapter 2',
+                  path: 'chapter-2/README.md',
+                  articles: [
+                    { title: 'Chapter 2-1', path: 'chapter-2/subchapter-1.md' },
+                    { title: 'Chapter 2-2', path: 'chapter-2/subchapter-2.md' }
+                  ]
+                }
+              ]
+            }
+          ]
+        });
+        expect(this.locals.output).to.deep.equal({
+          name: 'website'
+        });
+        expect(this.locals.config).to.deep.equal({
+        });
+        expect(this.createdAt).to.be.an.instanceof(Date);
+        expect(this.modifiedAt).to.be.an.instanceof(Date);
+        done();
+      })
+      .generate();
+  }); // should render subchapter at end of chapter
+  
   it('should render with table of contents containing parts', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/parts'));
     
