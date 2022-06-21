@@ -860,7 +860,7 @@ describe('GitBook', function() {
       });
     }); // should yield error when encountering file system error
     
-  }); // #chapters
+  }); // #contents
   
   describe('#chapter', function() {
     
@@ -920,8 +920,9 @@ describe('GitBook', function() {
           title: 'Chapter 1',
           front: {},
           content: "# Chapter 1\n\n",
-          path: 'chapter-1.md',
           format: 'md',
+          path: 'chapter-1.md',
+          href: 'chapter-1.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -985,8 +986,9 @@ describe('GitBook', function() {
           title: 'Chapter 2-1',
           front: {},
           content: "# Chapter 2-1\n",
-          path: 'chapter-2/subchapter-1.md',
           format: 'md',
+          path: 'chapter-2/subchapter-1.md',
+          href: 'chapter-2/subchapter-1.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1052,8 +1054,9 @@ describe('GitBook', function() {
           title: 'Preface',
           front: {},
           content: "# Preface\n",
-          path: 'README.md',
           format: 'md',
+          path: 'README.md',
+          href: 'README.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1176,8 +1179,9 @@ describe('GitBook', function() {
           title: 'Chapter 1',
           front: {},
           content: "# Chapter 1\n",
-          path: 'chapter-1.md',
           format: 'md',
+          path: 'chapter-1.md',
+          href: 'chapter-1.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1241,8 +1245,9 @@ describe('GitBook', function() {
           title: 'Chapter 1',
           front: {},
           content: "# Chapter 1\n",
-          path: 'chapter-1/README.md',
           format: 'md',
+          path: 'chapter-1/README.md',
+          href: 'chapter-1/README.md#anchor0',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1448,8 +1453,9 @@ describe('GitBook', function() {
           title: 'Example Book',
           front: {},
           content: "# Example Book\n",
-          path: 'README.md',
           format: 'md',
+          path: 'README.md',
+          href: 'README.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1515,8 +1521,9 @@ describe('GitBook', function() {
           title: 'Preface',
           front: {},
           content: "# Preface\n",
-          path: 'README.md',
           format: 'md',
+          path: 'README.md',
+          href: 'README.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1582,8 +1589,9 @@ describe('GitBook', function() {
           title: 'Example Book',
           front: {},
           content: "# Example Book\n",
-          path: 'HOME.md',
           format: 'md',
+          path: 'HOME.md',
+          href: 'HOME.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });
@@ -1649,8 +1657,9 @@ describe('GitBook', function() {
           title: 'Preface',
           front: {},
           content: "# Preface\n",
-          path: 'HOME.md',
           format: 'md',
+          path: 'HOME.md',
+          href: 'HOME.md',
           createdAt: new Date('2021-04-09T22:23:05.773Z'),
           modifiedAt: new Date('2022-01-05T21:48:14.573Z')
         });

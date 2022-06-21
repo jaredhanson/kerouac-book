@@ -137,7 +137,6 @@ describe('handlers/chapter', function() {
       .generate();
   }); // should render with table of contents containing parts
   
-  // WIP
   it('should render with table of contents containing anchors', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/anchors'));
     
@@ -156,16 +155,14 @@ describe('handlers/chapter', function() {
         expect(this.locals.gitbook).to.deep.equal({
           time: this.locals.gitbook.time
         });
-        /*
         expect(this.locals.page).to.deep.equal({
           title: 'Chapter 1',
           previous: null,
           next: {
-            title: 'Chapter 2',
-            path: 'part-1/chapter-2.md'
+            title: 'Chapter 1-1',
+            path: 'chapter-1/README.md#anchor1'
           }
         });
-        */
         expect(this.locals.file.mtime).to.be.an.instanceof(Date);
         expect(this.locals.file).to.deep.equal({
           path: 'chapter-1/README.md',
