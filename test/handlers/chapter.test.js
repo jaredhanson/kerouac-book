@@ -175,42 +175,30 @@ describe('handlers/chapter', function() {
         expect(this.locals.readme).to.deep.equal({
           path: 'README.md'
         });
-        console.log(this.locals.summary);
-        
-        /*
-        expect(this.locals.summary).to.deep.equal({
-          parts: [
-            
-          ]
-        });
-        */
-        
-        /*
         expect(this.locals.summary).to.deep.equal({
           parts: [
             {
-              title: 'Part 1',
               articles: [
-                { title: 'Chapter 1', path: 'part-1/chapter-1.md' },
-                { title: 'Chapter 2', path: 'part-1/chapter-2.md' }
-              ]
-            },
-            {
-              title: 'Part 2',
-              articles: [
-                { title: 'Chapter 3', path: 'part-2/chapter-3.md' },
-                { title: 'Chapter 4', path: 'part-2/chapter-4.md' }
-              ]
-            },
-            {
-              divider: true,
-              articles: [
-                { title: 'Chapter 5', path: 'part-3/chapter-5.md' }
+                {
+                  title: 'Chapter 1',
+                  path: 'chapter-1/README.md#anchor0',
+                  articles: [
+                    { title: 'Chapter 1-1', path: 'chapter-1/README.md#anchor1' },
+                    { title: 'Chapter 1-2', path: 'chapter-1/README.md#anchor2' }
+                  ]
+                },
+                {
+                  title: 'Chapter 2',
+                  path: 'chapter-2/README.md#anchor0',
+                  articles: [
+                    { title: 'Chapter 2-1', path: 'chapter-2/README.md#anchor1' },
+                    { title: 'Chapter 2-2', path: 'chapter-2/README.md#anchor2' }
+                  ]
+                }
               ]
             }
           ]
         });
-        */
         expect(this.locals.output).to.deep.equal({
           name: 'website'
         });
