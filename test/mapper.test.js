@@ -84,6 +84,22 @@ describe('Mapper', function() {
       .generate();
   }); // should not duplicate requests for chapters pointed to by anchors
   
+  it('should request static files', function(done) {
+    var book = new GitBook(path.resolve(__dirname, './data/books/static'));
+    
+    chai.kerouac.map(new Mapper(book))
+      .close(function() {
+        expect(this).to.request([
+          '/index.html',
+          '/chapter-1.html',
+          '/chapter-2.html',
+          '/stylesheet.css'
+        ]);
+        done();
+      })
+      .generate();
+  }); // should request static files
+  
   it('should request HTML-formatted download when option is set', function(done) {
     var book = new GitBook(path.resolve(__dirname, './data/books/simple'));
     
