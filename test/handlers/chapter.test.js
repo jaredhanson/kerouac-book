@@ -374,6 +374,22 @@ describe('handlers/chapter', function() {
       .generate();
   }); // should error when encountering error reading contents
   
+  it('should error when encountering error reading chapter', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
+    sinon.stub(book, 'chapter').yieldsAsync(new Error('something went wrong'));
+    
+    chai.kerouac.page(factory(book, 'book/chapter'))
+      .request(function(page) {
+        page.params = { 0: 'chapter-1' };
+      })
+      .next(function(err) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('something went wrong')
+        done();
+      })
+      .generate();
+  }); // should error when encountering error reading chapter
+  
   describe('filters', function() {
     
     describe('resolveFile', function() {
