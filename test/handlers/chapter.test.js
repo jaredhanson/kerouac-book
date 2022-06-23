@@ -124,7 +124,7 @@ describe('handlers/chapter', function() {
       .generate();
   }); // should render final chapter
   
-  it('should render subchapter at end of chapter', function(done) {
+  it('should render final subchapter of chapter', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/subchapters'));
     
     chai.kerouac.page(factory(book, 'book/chapter'))
@@ -200,7 +200,7 @@ describe('handlers/chapter', function() {
         done();
       })
       .generate();
-  }); // should render subchapter at end of chapter
+  }); // should render final subchapter of chapter
   
   it('should render with table of contents containing parts', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/parts'));
@@ -343,6 +343,20 @@ describe('handlers/chapter', function() {
       })
       .generate();
   }); // should render with table of contents containing anchors
+  
+  it('should go to next route when chapter is not found', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
+    
+    chai.kerouac.page(factory(book, 'book/chapter'))
+      .request(function(page) {
+        page.params = { 0: 'chapter-9' };
+      })
+      .next(function(err) {
+        expect(err).to.equal('route');
+        done();
+      })
+      .generate();
+  }); // should go to next route when chapter is not found
   
   it('should error when encountering error reading contents', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
