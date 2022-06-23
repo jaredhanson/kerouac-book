@@ -2,6 +2,7 @@
 
 var expect = require('chai').expect;
 var chai = require('chai');
+var sinon = require('sinon');
 var factory = require('../../lib/handlers/chapter');
 var path = require('path');
 var GitBook = require('../../lib/gitbook');
@@ -342,6 +343,22 @@ describe('handlers/chapter', function() {
       })
       .generate();
   }); // should render with table of contents containing anchors
+  
+  it('should error when encountering error reading contents', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../data/books/simple'));
+    sinon.stub(book, 'contents').yieldsAsync(new Error('something went wrong'));
+    
+    chai.kerouac.page(factory(book, 'book/chapter'))
+      .request(function(page) {
+        page.params = { 0: 'chapter-1' };
+      })
+      .next(function(err) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('something went wrong')
+        done();
+      })
+      .generate();
+  }); // should error when encountering error reading contents
   
   describe('filters', function() {
     
