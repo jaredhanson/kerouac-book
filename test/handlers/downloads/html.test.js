@@ -34,6 +34,16 @@ describe('handlers/downloads/html', function() {
         expect(this.locals.readme).to.deep.equal({
           path: 'README.md'
         });
+        expect(this.locals.summary).to.deep.equal({
+          parts: [
+            {
+              articles: [
+                { title: 'Chapter 1', path: 'chapter-1.md' },
+                { title: 'Chapter 2', path: 'chapter-2.md' }
+              ]
+            }
+          ]
+        });
         expect(this.locals.output).to.deep.equal({
           name: 'ebook',
           format: 'html'
