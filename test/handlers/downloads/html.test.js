@@ -15,19 +15,31 @@ describe('handlers/downloads/html', function() {
     
     var convert = sinon.stub().yieldsAsync(null, '1 ');
     
-    chai.kerouac.page(factory(book, 'book'))
+    chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
         page.app = { convert: convert };
-        
-        
-        //page.params = { 0: 'index' };
-        //page.params = { 0: 'writing' };
       })
       .finish(function() {
-        //expect(1).to.equal(2);
-        
-        expect(this).to.render('book')
+        expect(this).to.render('book/ebook')
           .with.locals({ title: 'Example Book'})
+        
+        
+        expect(this.locals.book).to.deep.equal({
+          title: 'Example Book'
+        });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
+        });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
+        });
+        expect(this.locals.output).to.deep.equal({
+          name: 'ebook',
+          format: 'html'
+        });
+        expect(this.locals.config).to.deep.equal({
+        });
         
         done();
         
