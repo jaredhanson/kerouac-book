@@ -21,8 +21,7 @@ describe('handlers/downloads/html', function() {
       })
       .finish(function() {
         expect(this).to.render('book/ebook')
-          .with.locals({ title: 'Example Book'})
-          .and.options({ content: '<section class="chapter" id="README">1 </section><section class="chapter" id="chapter-1">1 </section><section class="chapter" id="chapter-2">1 </section>' });
+          .with.options({ content: '<section class="chapter" id="README">1 </section><section class="chapter" id="chapter-1">1 </section><section class="chapter" id="chapter-2">1 </section>' });
         
         expect(this.locals.book).to.deep.equal({
           title: 'Example Book'
