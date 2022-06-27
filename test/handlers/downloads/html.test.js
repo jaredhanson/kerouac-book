@@ -125,7 +125,7 @@ describe('handlers/downloads/html', function() {
       })
       .finish(function() {
         expect(this).to.render('book/ebook')
-          .with.options({ content: '<section class="chapter" id="README"># Example Book\n</section><section class="chapter" id="chapter-1-README"># Chapter 1\n</section><section class="chapter" id="chapter-2-README"># Chapter 2\n</section>' });
+          .with.options({ content: '<section class="chapter" id="README"># Example Book\n</section><section class="chapter" id="chapter-1-README"># Chapter 1\n</section><section class="chapter" id="chapter-1-subchapter-1"># Chapter 1-1\n</section><section class="chapter" id="chapter-1-subchapter-2"># Chapter 1-2\n</section><section class="chapter" id="chapter-2-README"># Chapter 2\n</section><section class="chapter" id="chapter-2-subchapter-1"># Chapter 2-1\n</section><section class="chapter" id="chapter-2-subchapter-2"># Chapter 2-2\n</section>' });
         
         expect(this.locals.book).to.deep.equal({
           title: 'Example Book'
