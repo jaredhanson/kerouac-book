@@ -34,6 +34,7 @@
     "headmatter": "0.0.2",
     "kerouac": "0.0.x",
     "marked": "^0.3.6",
+    "slugify": "^1.6.5",
     "utils-flatten": "^1.0.0",
     "utils-merge": "^1.0.1"
   },
