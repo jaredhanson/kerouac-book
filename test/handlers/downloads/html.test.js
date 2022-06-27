@@ -171,6 +171,67 @@ describe('handlers/downloads/html', function() {
       .generate();
   }); // should render chapters and subchapters
   
+  it('should render chapters and subchapters with anchors', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../../data/books/anchors'));
+    
+    chai.kerouac.page(factory(book, 'book/ebook'))
+      .request(function(page) {
+        var convert = sinon.fake(function(str, type, callback) {
+          process.nextTick(function() {
+            return callback(null, str);
+          });
+        });
+        
+        page.app = { convert: convert };
+      })
+      .finish(function() {
+        expect(this).to.render('book/ebook')
+          .with.options({ content: '<section class="chapter" id="README"># Example Book\n</section><section class="chapter" id="chapter-1-README"># Chapter 1\n</section><section class="chapter" id="chapter-2-README"># Chapter 2\n</section>' });
+        
+        expect(this.locals.book).to.deep.equal({
+          title: 'Example Book'
+        });
+        expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
+        expect(this.locals.gitbook).to.deep.equal({
+          time: this.locals.gitbook.time
+        });
+        expect(this.locals.readme).to.deep.equal({
+          path: 'README.md'
+        });
+        expect(this.locals.summary).to.deep.equal({
+          parts: [
+            {
+              articles: [
+                {
+                  title: 'Chapter 1',
+                  path: 'chapter-1/README.md#anchor0',
+                  articles: [
+                    { title: 'Chapter 1-1', path: 'chapter-1/README.md#anchor1' },
+                    { title: 'Chapter 1-2', path: 'chapter-1/README.md#anchor2' }
+                  ]
+                },
+                {
+                  title: 'Chapter 2',
+                  path: 'chapter-2/README.md#anchor0',
+                  articles: [
+                    { title: 'Chapter 2-1', path: 'chapter-2/README.md#anchor1' },
+                    { title: 'Chapter 2-2', path: 'chapter-2/README.md#anchor2' }
+                  ]
+                }
+              ]
+            }
+          ]
+        });
+        expect(this.locals.output).to.deep.equal({
+          name: 'ebook',
+          format: 'html'
+        });
+        expect(this.locals.config).to.deep.equal({});
+        done();
+      })
+      .generate();
+  }); // should render chapters and subchapters with anchors
+  
   it('should render only readme', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../../data/books/readme'));
     
