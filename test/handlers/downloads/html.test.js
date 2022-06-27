@@ -10,18 +10,22 @@ var GitBook = require('../../../lib/gitbook');
 
 describe('handlers/downloads/html', function() {
   
-  it('should render', function(done) {
+  it('should render when preface is not included in contents', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../../data/books/simple'));
-    
-    var convert = sinon.stub().yieldsAsync(null, '1 ');
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        var convert = sinon.fake(function(str, type, callback) {
+          process.nextTick(function() {
+            return callback(null, str);
+          });
+        });
+        
         page.app = { convert: convert };
       })
       .finish(function() {
         expect(this).to.render('book/ebook')
-          .with.options({ content: '<section class="chapter" id="README">1 </section><section class="chapter" id="chapter-1">1 </section><section class="chapter" id="chapter-2">1 </section>' });
+          .with.options({ content: '<section class="chapter" id="README"># Example Book\n</section><section class="chapter" id="chapter-1"># Chapter 1\n\n</section><section class="chapter" id="chapter-2"># Chapter 2\n</section>' });
         
         expect(this.locals.book).to.deep.equal({
           title: 'Example Book'
@@ -49,23 +53,9 @@ describe('handlers/downloads/html', function() {
         });
         expect(this.locals.config).to.deep.equal({
         });
-        
         done();
-        
-        /*
-        expect(this).to.render('book/chapter')
-          .with.locals({ title: 'Chapters: Writing is nice'})
-          .and.beginWith.content('# Title of the chapter').of.format('md');
-          
-        expect(this.createdAt).to.be.an.instanceof(Date);
-        expect(this.modifiedAt).to.be.an.instanceof(Date);
-        done();
-        */
-      })
-      .next(function(err) {
-        console.log(err)
       })
       .generate();
-  }); // should render
+  }); // should render when preface is not included in contents
   
 });
