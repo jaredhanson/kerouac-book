@@ -171,7 +171,7 @@ describe('handlers/downloads/html', function() {
       .generate();
   }); // should render chapters and subchapters
   
-  it.skip('should render only readme', function(done) {
+  it('should render only readme', function(done) {
     var book = new GitBook(path.resolve(__dirname, '../../data/books/readme'));
     
     chai.kerouac.page(factory(book, 'book/ebook'))
@@ -186,11 +186,10 @@ describe('handlers/downloads/html', function() {
       })
       .finish(function() {
         expect(this).to.render('book/ebook')
-          .with.options({ content: '<section class="chapter" id="README"># Preface\n</section><section class="chapter" id="chapter-1"># Chapter 1\n</section><section class="chapter" id="chapter-2"># Chapter 2\n</section>' });
+          .with.options({ content: '<section class="chapter" id="README"># Example Book\n\nThis book is for use in illustrative examples.\n</section>' });
         
         expect(this.locals.book).to.deep.equal({
-          title: 'Example Book',
-          description: 'This book is for use in illustrative examples.'
+          title: 'Example Book'
         });
         expect(this.locals.gitbook.time).to.be.an.instanceof(Date);
         expect(this.locals.gitbook).to.deep.equal({
@@ -200,24 +199,13 @@ describe('handlers/downloads/html', function() {
           path: 'README.md'
         });
         expect(this.locals.summary).to.deep.equal({
-          parts: [
-            {
-              articles: [
-                { title: 'Preface', path: 'README.md' },
-                { title: 'Chapter 1', path: 'chapter-1.md' },
-                { title: 'Chapter 2', path: 'chapter-2.md' }
-              ]
-            }
-          ]
+          parts: []
         });
         expect(this.locals.output).to.deep.equal({
           name: 'ebook',
           format: 'html'
         });
-        expect(this.locals.config).to.deep.equal({
-          title: 'Example Book',
-          description: 'This book is for use in illustrative examples.'
-        });
+        expect(this.locals.config).to.deep.equal({});
         done();
       })
       .generate();
