@@ -18,8 +18,12 @@ describe('kerouac-book', function() {
   });
   
   describe('.createMapper', function() {
-    var mapper = pkg.createMapper(path.resolve(__dirname, './data/books/simple'));
-    expect(mapper).to.be.an('object');
+    
+    it('should create mapper', function() {
+      var mapper = pkg.createMapper(path.resolve(__dirname, './data/books/simple'));
+      expect(mapper).to.be.an('object');
+    });
+    
   });
   
 });
