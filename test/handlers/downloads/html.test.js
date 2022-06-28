@@ -272,4 +272,38 @@ describe('handlers/downloads/html', function() {
       .generate();
   }); // should render only readme
   
+  it('should error when encountering error reading preface', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../../data/books/simple'));
+    sinon.stub(book, 'preface').yieldsAsync(new Error('something went wrong'));
+    
+    chai.kerouac.page(factory(book, 'book/ebook'))
+      .next(function(err) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('something went wrong')
+        done();
+      })
+      .generate();
+  }); // should error when encountering error reading preface
+  
+  it('should error when encountering error compiling preface', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../../data/books/simple'));
+    
+    chai.kerouac.page(factory(book, 'book/ebook'))
+      .request(function(page) {
+        var convert = sinon.fake(function(str, type, callback) {
+          process.nextTick(function() {
+            return callback(new Error('something went wrong'));
+          });
+        });
+      
+        page.app = { convert: convert };
+      })
+      .next(function(err) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('something went wrong')
+        done();
+      })
+      .generate();
+  }); // should error when encountering error compiling preface
+  
 });
