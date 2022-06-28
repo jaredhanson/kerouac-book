@@ -352,4 +352,32 @@ describe('handlers/downloads/html', function() {
       .generate();
   }); // should error when encountering error reading chapter
   
+  it('should error when encountering error compiling chapter', function(done) {
+    var book = new GitBook(path.resolve(__dirname, '../../data/books/simple'));
+    
+    chai.kerouac.page(factory(book, 'book/ebook'))
+      .request(function(page) {
+        var convertOk = sinon.fake(function(str, type, callback) {
+          process.nextTick(function() {
+            return callback(null, str);
+          });
+        });
+        var convertErr = sinon.fake(function(str, type, callback) {
+          process.nextTick(function() {
+            return callback(new Error('something went wrong'));
+          });
+        });
+        convert = sinon.stub().onCall(1).callsFake(convertErr)
+                              .callsFake(convertOk)
+      
+        page.app = { convert: convert };
+      })
+      .next(function(err) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('something went wrong')
+        done();
+      })
+      .generate();
+  }); // should error when encountering error compiling chapter
+  
 });
