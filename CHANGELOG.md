@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Upgraded `kerouac` dependency to version 0.2.x.
+
 ## [0.0.1] - 2023-12-13
 
 - Initial release.
 
+[Unreleased]: https://github.com/jaredhanson/kerouac-book/compare/v0.0.1...HEAD
 [0.0.1]: https://github.com/jaredhanson/kerouac-book/releases/tag/v0.0.1
