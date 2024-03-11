@@ -15,10 +15,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
         
         page.app = { convert: convert };
@@ -67,10 +72,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
         
         page.app = { convert: convert };
@@ -115,10 +125,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
         
         page.app = { convert: convert };
@@ -176,10 +191,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
         
         page.app = { convert: convert };
@@ -237,10 +257,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
         
         page.app = { convert: convert };
@@ -290,10 +315,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(new Error('something went wrong'));
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
       
         page.app = { convert: convert };
@@ -313,10 +343,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
       
         page.app = { convert: convert };
@@ -336,10 +371,15 @@ describe('handlers/downloads/html', function() {
     
     chai.kerouac.page(factory(book, 'book/ebook'))
       .request(function(page) {
+        /*
         var convert = sinon.fake(function(str, type, callback) {
           process.nextTick(function() {
             return callback(null, str);
           });
+        });
+        */
+        var convert = sinon.fake(function(str, type, callback) {
+          return str;
         });
       
         page.app = { convert: convert };
