@@ -1,6 +1,6 @@
 {
   "name": "kerouac-book",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Kerouac app that generates a website from a GitBook.",
   "keywords": [
     "gitbook"
