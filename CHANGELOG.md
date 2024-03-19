@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2024-03-19
+
+### Changed
+- Upgraded `kerouac` dependency to version 0.4.x.
+
 ## [0.0.3] - 2024-03-11
 
 ### Changed
